@@ -79,12 +79,53 @@ export async function getProtectedTest() {
   });
 }
 
+/**
+ * Create a new interview kit
+ */
+export async function createKit(kitData) {
+  return request('/kits', {
+    method: 'POST',
+    body: JSON.stringify(kitData),
+  });
+}
+
+/**
+ * List all kits for the authenticated user
+ */
+export async function getKits() {
+  return request('/kits', {
+    method: 'GET',
+  });
+}
+
+/**
+ * Get a specific kit by ID
+ */
+export async function getKitById(id) {
+  return request(`/kits/${id}`, {
+    method: 'GET',
+  });
+}
+
+/**
+ * Trigger generation for a kit
+ */
+export async function generateKit(id) {
+  return request(`/kits/${id}/generate`, {
+    method: 'POST',
+  });
+}
+
 const api = {
   register,
   login,
   logout,
   getMe,
   getProtectedTest,
+  createKit,
+  getKits,
+  getKitById,
+  generateKit,
 };
 
 export default api;
