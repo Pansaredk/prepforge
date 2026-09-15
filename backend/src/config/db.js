@@ -4,12 +4,7 @@ const mongoose = require('mongoose');
  * Connects to MongoDB database using MONGODB_URI environment variable.
  */
 const connectDB = async () => {
-  const mongoURI = process.env.MONGODB_URI;
-
-  if (!mongoURI) {
-    console.warn('[Database] MONGODB_URI is not defined. Skipping database connection.');
-    return;
-  }
+  const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/ai_interview_prep';
 
   try {
     const conn = await mongoose.connect(mongoURI);
