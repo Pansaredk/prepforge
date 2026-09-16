@@ -1,0 +1,37 @@
+[
+  {
+    "id": "case-001",
+    "title": "Senior Full-Stack Engineer",
+    "company_url": "https://example.com",
+    "days": 5,
+    "jd": "We are looking for a Senior Full-Stack Engineer. Must be proficient in React, Next.js, Node.js, Express, and MongoDB. Experience designing scalable RESTful APIs, high test coverage, and clear technical communication required. Nice to have experience with Docker and Kubernetes."
+  },
+  {
+    "id": "case-002",
+    "title": "1-Day Backend Engineer",
+    "company_url": "https://example.com",
+    "days": 1,
+    "jd": "Seeking a Backend Engineer. Core requirements: Python, PostgreSQL, REST APIs, Microservices, and Git. Team collaboration and problem solving essential."
+  },
+  {
+    "id": "case-003",
+    "title": "60-Day Cloud Architect",
+    "company_url": "https://example.com",
+    "days": 60,
+    "jd": "Staff Cloud Architect position. Must-have skills: AWS, Cloud Architecture, System Design, Kubernetes, Distributed Systems, and Security. Excellent leadership and stakeholder communication required."
+  },
+  {
+    "id": "case-004",
+    "title": "Unreachable Company Test",
+    "company_url": "https://unreachable-company-test-site-987654321.org",
+    "days": 3,
+    "jd": "Junior Frontend Developer role. Requires JavaScript, HTML, CSS, React, and willingness to learn. Good interpersonal skills."
+  },
+  {
+    "id": "case-005",
+    "title": "MERN Stack Developer",
+    "company_url": "https://example.com",
+    "days": 7,
+    "jd": "We are looking for a MERN Stack Developer to develop and maintain web applications. Requirements: Good knowledge of JavaScript, experience with React.js, basic knowledge of Node.js and Express.js, experience with MongoDB, understanding of HTML, CSS and REST APIs, knowledge of Git and GitHub, and good problem-solving skills. Nice to have knowledge of TypeScript, experience with Next.js, and basic knowledge of cloud deployment. Responsibilities include developing responsive web applications, building REST APIs, managing MongoDB databases, integrating frontend with backend APIs, debugging application issues, writing clean maintainable code, and working with the development team."
+  }
+]
