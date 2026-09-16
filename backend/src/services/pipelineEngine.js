@@ -21,6 +21,8 @@ async function executePipeline({ title, jobDescription, companyUrl, days }) {
   // 1. Company Research (bounded crawl with error resilience)
   const research = await researchCompany(companyUrl);
   const researchData = {
+    company: research.company || { url: companyUrl, title: '', summary: '', sources: [] },
+    hiring: research.hiring || { found: false, url: '', title: '', summary: '', sources: [] },
     sources: research.sources || [],
     errors: research.errors || [],
     publicDiscussion: research.publicDiscussion || { available: false, sources: [] }

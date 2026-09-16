@@ -3,6 +3,29 @@
  */
 
 /**
+ * Normalizes a URL by stripping fragments, tracking queries, and trailing slashes
+ * @param {string} urlString
+ * @returns {string}
+ */
+function normalizeUrl(urlString) {
+  try {
+    const u = new URL(urlString);
+    u.hash = '';
+    const trackingParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'ref', 'source', 'fbclid', 'gclid'];
+    for (const p of trackingParams) {
+      u.searchParams.delete(p);
+    }
+    let href = u.href;
+    if (u.pathname !== '/' && href.endsWith('/')) {
+      href = href.slice(0, -1);
+    }
+    return href;
+  } catch {
+    return urlString || '';
+  }
+}
+
+/**
  * Extracts page title, clean text, and discovered links from HTML string
  * @param {string} html
  * @param {string} baseUrl
@@ -32,22 +55,39 @@ function extractFromHtml(html, baseUrl) {
 
   // 2. Discover links
   const links = [];
-  const linkRegex = /<a\s+[^>]*href=["']([^"'#\s]+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  const linkRegex = /<a\s+([^>]*?)>([\s\S]*?)<\/a>/gi;
   let match;
 
   while ((match = linkRegex.exec(html)) !== null) {
-    const rawHref = match[1].trim();
-    const linkText = match[2].replace(/<[^>]+>/g, '').trim().replace(/\s+/g, ' ');
+    const attrs = match[1];
+    const innerHtml = match[2];
+
+    // Extract href
+    const hrefMatch = attrs.match(/href=["']([^"']+)["']/i);
+    if (!hrefMatch) continue;
+
+    const rawHref = hrefMatch[1].trim();
+    if (/^(?:javascript:|mailto:|tel:|#)/i.test(rawHref)) continue;
+
+    // Extract link text, aria-label, and title
+    const innerText = innerHtml.replace(/<[^>]+>/g, ' ').trim();
+    const ariaMatch = attrs.match(/aria-label=["']([^"']+)["']/i);
+    const titleAttrMatch = attrs.match(/title=["']([^"']+)["']/i);
+
+    const fullText = [
+      innerText,
+      ariaMatch ? ariaMatch[1] : '',
+      titleAttrMatch ? titleAttrMatch[1] : ''
+    ].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
 
     try {
       const resolved = new URL(rawHref, baseUrl);
-      // Only keep same-origin or relevant http/https links
       if (resolved.protocol === 'http:' || resolved.protocol === 'https:') {
-        // Exclude common static asset extensions
-        if (!/\.(png|jpe?g|gif|svg|pdf|css|js|ico|woff2?|zip|exe)$/i.test(resolved.pathname)) {
+        if (!/\.(png|jpe?g|gif|svg|pdf|css|js|ico|woff2?|zip|exe|mp4|webm)$/i.test(resolved.pathname)) {
+          const normalized = normalizeUrl(resolved.href);
           links.push({
-            url: resolved.href,
-            text: linkText
+            url: normalized,
+            text: fullText
           });
         }
       }
@@ -91,5 +131,6 @@ function extractFromHtml(html, baseUrl) {
 }
 
 module.exports = {
-  extractFromHtml
+  extractFromHtml,
+  normalizeUrl
 };

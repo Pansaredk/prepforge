@@ -98,6 +98,19 @@ const interviewKitSchema = new mongoose.Schema(
       ]
     },
     research: {
+      company: {
+        url: { type: String, default: '' },
+        title: { type: String, default: '' },
+        summary: { type: String, default: '' },
+        sources: [{ type: String }]
+      },
+      hiring: {
+        found: { type: Boolean, default: false },
+        url: { type: String, default: '' },
+        title: { type: String, default: '' },
+        summary: { type: String, default: '' },
+        sources: [{ type: String }]
+      },
       sources: [
         {
           url: { type: String },
