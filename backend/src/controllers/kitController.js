@@ -499,7 +499,13 @@ const regenerateBrief = async (req, res, next) => {
       return res.status(403).json({ success: false, message: 'Forbidden' });
     }
 
-    const researchText = (kit.research?.sources || []).map((s) => s.title).join(' ');
+    const researchParts = [];
+    if (kit.research?.company?.summary) researchParts.push(kit.research.company.summary);
+    if (kit.research?.hiring?.summary) researchParts.push(kit.research.hiring.summary);
+    if (kit.research?.sources) {
+      researchParts.push(...kit.research.sources.map((s) => `${s.title || ''} (${s.url || ''})`));
+    }
+    const researchText = researchParts.join(' ').trim();
     const briefs = await generateBriefs(kit.jobDescription, kit.title, kit.companyUrl, researchText);
 
     kit.companyBrief = briefs.companyBrief;
