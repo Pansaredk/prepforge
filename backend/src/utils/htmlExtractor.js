@@ -17,6 +17,19 @@ function extractFromHtml(html, baseUrl) {
   const titleMatch = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
   const title = titleMatch ? titleMatch[1].trim().replace(/\s+/g, ' ') : '';
 
+  // 1b. Extract meta description
+  const metaDescMatch = html.match(/<meta\s+[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i) ||
+                        html.match(/<meta\s+[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i) ||
+                        html.match(/<meta\s+[^>]*property=["']og:description["'][^>]*content=["']([^"']*)["']/i);
+  const metaDescription = metaDescMatch ? metaDescMatch[1].trim().replace(/\s+/g, ' ') : '';
+
+  let hostname = '';
+  try {
+    hostname = new URL(baseUrl).hostname;
+  } catch {
+    hostname = '';
+  }
+
   // 2. Discover links
   const links = [];
   const linkRegex = /<a\s+[^>]*href=["']([^"'#\s]+)["'][^>]*>([\s\S]*?)<\/a>/gi;
@@ -70,6 +83,8 @@ function extractFromHtml(html, baseUrl) {
 
   return {
     title,
+    metaDescription,
+    hostname,
     text: cleaned,
     links
   };

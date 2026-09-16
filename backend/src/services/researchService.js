@@ -1,5 +1,6 @@
 const { extractFromHtml } = require('../utils/htmlExtractor');
 const { validateCompanyUrl } = require('../utils/urlValidator');
+const { classifyWebsite, STATUS_MESSAGES } = require('../utils/companyWebsiteValidator');
 
 const RELEVANCE_KEYWORDS = [
   'about', 'company', 'careers', 'jobs', 'hiring', 'team', 'values', 'culture', 'mission'
@@ -98,10 +99,17 @@ async function researchCompany(companyUrl) {
   const errors = [];
   let combinedText = '';
 
+  // 1. URL syntax and SSRF check
   const validation = validateCompanyUrl(companyUrl);
   if (!validation.valid) {
     errors.push(`URL validation failed: ${validation.error}`);
+    errors.push(STATUS_MESSAGES.INVALID);
+    sources.push({ url: companyUrl || '', title: '', status: 'INVALID' });
     return {
+      status: 'INVALID',
+      statusMessage: STATUS_MESSAGES.INVALID,
+      reason: validation.error || 'Invalid URL or SSRF target',
+      signals: [],
       sources,
       errors,
       combinedText: '',
@@ -111,23 +119,43 @@ async function researchCompany(companyUrl) {
 
   const normalizedUrl = validation.normalizedUrl;
 
-  // 1. Fetch main page
+  // 2. Safely fetch main page
   const mainResult = await fetchPage(normalizedUrl, 5000);
-  if (!mainResult.success) {
-    errors.push(`Failed to reach ${normalizedUrl}: ${mainResult.error}`);
-  } else {
-    const extracted = extractFromHtml(mainResult.html, mainResult.finalUrl);
-    sources.push({
-      url: mainResult.finalUrl,
-      title: extracted.title || 'Home',
-      status: 'success'
-    });
-    combinedText += `\n--- SOURCE: ${mainResult.finalUrl} (${extracted.title}) ---\n${extracted.text}\n`;
 
-    // 2. Discover and crawl up to 2 high-value subpages (careers, about, etc.)
-    const topSublinks = rankLinks(extracted.links, mainResult.finalUrl);
+  // 3. Classify website content & reachability
+  const validationResult = classifyWebsite({
+    fetchResult: mainResult,
+    targetUrl: normalizedUrl
+  });
+
+  if (validationResult.status === 'INVALID') {
+    // Record explicit research error
+    errors.push(`Website validation failed: ${validationResult.message} (${validationResult.reason})`);
+    sources.push({
+      url: (mainResult && mainResult.finalUrl) || normalizedUrl,
+      title: validationResult.extracted?.title || '',
+      status: 'INVALID'
+    });
+    // Do not attempt to crawl subpages on invalid sites
+  } else if (validationResult.status === 'UNCERTAIN') {
+    sources.push({
+      url: (mainResult && mainResult.finalUrl) || normalizedUrl,
+      title: validationResult.extracted?.title || 'Home',
+      status: 'UNCERTAIN'
+    });
+    combinedText += `\n--- SOURCE: ${mainResult.finalUrl || normalizedUrl} (${validationResult.extracted?.title || 'Home'}) ---\n${validationResult.extracted?.text || ''}\n`;
+  } else {
+    // VALID
+    sources.push({
+      url: (mainResult && mainResult.finalUrl) || normalizedUrl,
+      title: validationResult.extracted?.title || 'Home',
+      status: 'VALID'
+    });
+    combinedText += `\n--- SOURCE: ${mainResult.finalUrl || normalizedUrl} (${validationResult.extracted?.title || 'Home'}) ---\n${validationResult.extracted?.text || ''}\n`;
+
+    // Discover and crawl up to 2 high-value subpages (careers, about, etc.)
+    const topSublinks = rankLinks(validationResult.extracted?.links || [], mainResult.finalUrl || normalizedUrl);
     for (const subUrl of topSublinks) {
-      // SSRF validation check for sublink
       const subValidation = validateCompanyUrl(subUrl);
       if (!subValidation.valid) continue;
 
@@ -137,7 +165,7 @@ async function researchCompany(companyUrl) {
         sources.push({
           url: subResult.finalUrl,
           title: subExtracted.title || 'Page',
-          status: 'success'
+          status: 'VALID'
         });
         combinedText += `\n--- SOURCE: ${subResult.finalUrl} (${subExtracted.title}) ---\n${subExtracted.text}\n`;
       } else {
@@ -145,19 +173,23 @@ async function researchCompany(companyUrl) {
         sources.push({
           url: subUrl,
           title: '',
-          status: 'failed'
+          status: 'INVALID'
         });
       }
     }
   }
 
-  // 3. Lightweight public interview discussion stub
+  // 4. Lightweight public interview discussion stub
   const publicDiscussion = {
     available: false,
     sources: []
   };
 
   return {
+    status: validationResult.status,
+    statusMessage: validationResult.message,
+    reason: validationResult.reason,
+    signals: validationResult.signals || [],
     sources,
     errors,
     combinedText: combinedText.trim(),

@@ -611,6 +611,92 @@ export default function KitDetailPage() {
                   </button>
                 </div>
 
+                {/* Target Website Validation Status Card */}
+                <div className="rounded-2xl bg-white p-5 border border-slate-200 shadow-xs">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                    <div>
+                      <h4 className="text-xs font-semibold uppercase text-slate-400">Target Company Website</h4>
+                      <a
+                        href={kit.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs sm:text-sm font-medium text-indigo-600 hover:underline inline-flex items-center gap-1 mt-0.5"
+                      >
+                        {kit.companyUrl}
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    </div>
+                    <div>
+                      {(() => {
+                        const primarySource = kit.research?.sources?.[0];
+                        const hasErrors = kit.research?.errors && kit.research.errors.length > 0;
+                        const status = primarySource?.status || (hasErrors ? 'INVALID' : 'UNCERTAIN');
+
+                        if (status === 'VALID') {
+                          return (
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 border border-emerald-200">
+                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                              Reachable Organization Website
+                            </span>
+                          );
+                        } else if (status === 'UNCERTAIN') {
+                          return (
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700 border border-amber-200">
+                              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+                              Uncertain Organization Signal
+                            </span>
+                          );
+                        } else {
+                          return (
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-50 px-3 py-1 text-xs font-medium text-rose-700 border border-rose-200">
+                              <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
+                              Website Invalid / Unreachable
+                            </span>
+                          );
+                        }
+                      })()}
+                    </div>
+                  </div>
+
+                  <div className="mt-3 text-xs text-slate-600 space-y-1.5">
+                    {(() => {
+                      const primarySource = kit.research?.sources?.[0];
+                      const hasErrors = kit.research?.errors && kit.research.errors.length > 0;
+                      const status = primarySource?.status || (hasErrors ? 'INVALID' : 'UNCERTAIN');
+
+                      if (status === 'VALID') {
+                        return (
+                          <p className="text-emerald-800">
+                            Website appears to be a reachable organization/company website. Research data was successfully gathered to enrich the company overview.
+                          </p>
+                        );
+                      } else if (status === 'UNCERTAIN') {
+                        return (
+                          <p className="text-amber-800">
+                            Website is reachable, but there is not enough information to determine whether it represents the intended company.
+                          </p>
+                        );
+                      } else {
+                        return (
+                          <div className="space-y-1">
+                            <p className="text-rose-800 font-medium">
+                              Website could not be reached or does not appear to contain a meaningful company website.
+                            </p>
+                            {kit.research?.errors?.map((err, i) => (
+                              <p key={i} className="text-slate-500 text-[11px]">• {err}</p>
+                            ))}
+                            <p className="text-slate-500 text-[11px] italic">
+                              PrepForge successfully grounded the company brief and interview preparation material in the provided job description.
+                            </p>
+                          </div>
+                        );
+                      }
+                    })()}
+                  </div>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Company Brief */}
                   <div className="rounded-2xl bg-white p-6 border border-slate-200 shadow-xs space-y-4">
