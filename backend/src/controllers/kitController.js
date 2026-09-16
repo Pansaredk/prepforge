@@ -612,12 +612,48 @@ const regenerateSchedule = async (req, res, next) => {
   }
 };
 
+/**
+ * Delete a kit and all its embedded data
+ * DELETE /api/kits/:id
+ */
+const deleteKit = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const kit = await InterviewKit.findById(id);
+
+    if (!kit) {
+      return res.status(404).json({
+        success: false,
+        message: 'Kit not found'
+      });
+    }
+
+    if (kit.userId.toString() !== req.userId.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: 'Forbidden: You do not have access to this kit'
+      });
+    }
+
+    await InterviewKit.findByIdAndDelete(id);
+
+    return res.status(200).json({
+      success: true,
+      message: 'Kit deleted successfully',
+      kitId: id
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createKit,
   listKits,
   getKitById,
   generateKit,
   updateKit,
+  deleteKit,
   addQuestion,
   updateQuestion,
   deleteQuestion,

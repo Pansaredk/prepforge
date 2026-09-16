@@ -16,6 +16,7 @@ import {
   regenerateBrief,
   regenerateCategoryQuestions,
   regenerateSchedule,
+  deleteKit,
 } from '../../../lib/api';
 import Navbar from '../../../components/Navbar';
 
@@ -138,6 +139,26 @@ export default function KitDetailPage() {
       setError(err.message || 'Failed to trigger kit generation.');
     } finally {
       setGenerating(false);
+    }
+  };
+
+  const handleDeleteThisKit = async () => {
+    if (!window.confirm(`Are you sure you want to delete "${kit?.title || 'this kit'}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    setActionLoading(true);
+    try {
+      const res = await deleteKit(id);
+      if (res && res.success) {
+        router.push('/dashboard');
+      } else {
+        setError((res && res.message) || 'Failed to delete kit.');
+      }
+    } catch (err) {
+      setError(err.message || 'Failed to delete kit.');
+    } finally {
+      setActionLoading(false);
     }
   };
 
@@ -531,6 +552,15 @@ export default function KitDetailPage() {
                 {generating ? 'Starting...' : 'Run Generation Pipeline'}
               </button>
             )}
+
+            <button
+              onClick={handleDeleteThisKit}
+              disabled={actionLoading || generating}
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition cursor-pointer"
+              title="Delete this kit"
+            >
+              Delete Kit
+            </button>
           </div>
         </div>
 

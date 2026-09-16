@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getMe, getKits, logout } from '../../lib/api';
+import { getMe, getKits, logout, deleteKit } from '../../lib/api';
 import Navbar from '../../components/Navbar';
 
 export default function DashboardPage() {
@@ -60,6 +60,23 @@ export default function DashboardPage() {
       console.error(e);
     } finally {
       router.push('/login');
+    }
+  };
+
+  const handleDeleteKit = async (kitId, kitTitle) => {
+    if (!window.confirm(`Are you sure you want to delete "${kitTitle || 'this kit'}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      const res = await deleteKit(kitId);
+      if (res && res.success) {
+        setKits((prev) => prev.filter((k) => (k.id || k._id) !== kitId));
+      } else {
+        alert((res && res.message) || 'Failed to delete kit.');
+      }
+    } catch (err) {
+      alert(err.message || 'Failed to delete kit.');
     }
   };
 
@@ -201,12 +218,21 @@ export default function DashboardPage() {
                           day: 'numeric',
                         }) : ''}
                       </span>
-                      <Link
-                        href={`/kits/${kitId}`}
-                        className="rounded-lg bg-indigo-50 px-3.5 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-100 transition"
-                      >
-                        Open Kit &rarr;
-                      </Link>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleDeleteKit(kitId, kit.title)}
+                          className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition cursor-pointer"
+                          title="Delete Kit"
+                        >
+                          Delete
+                        </button>
+                        <Link
+                          href={`/kits/${kitId}`}
+                          className="rounded-lg bg-indigo-50 px-3.5 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-100 transition"
+                        >
+                          Open Kit &rarr;
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 );

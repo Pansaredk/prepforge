@@ -6,6 +6,7 @@ const {
   getKitById,
   generateKit,
   updateKit,
+  deleteKit,
   addQuestion,
   updateQuestion,
   deleteQuestion,
@@ -26,6 +27,7 @@ router.post('/', createKit);
 router.get('/', listKits);
 router.get('/:id', getKitById);
 router.patch('/:id', updateKit);
+router.delete('/:id', deleteKit);
 router.post('/:id/generate', generateKit);
 
 // Question Builder Endpoints

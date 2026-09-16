@@ -127,6 +127,15 @@ export async function updateKit(id, data) {
 }
 
 /**
+ * Delete an entire kit
+ */
+export async function deleteKit(id) {
+  return request(`/kits/${id}`, {
+    method: 'DELETE',
+  });
+}
+
+/**
  * Add a custom question to kit
  */
 export async function addQuestion(id, questionData) {
@@ -213,6 +222,7 @@ const api = {
   getKitById,
   generateKit,
   updateKit,
+  deleteKit,
   addQuestion,
   updateQuestion,
   deleteQuestion,
