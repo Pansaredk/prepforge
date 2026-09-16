@@ -1,0 +1,14 @@
+{
+  "name": "prepforge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PrepForge - AI Interview Preparation Kit (TRAO Assessment FS-AI-INTERVIEW-01)",
+  "scripts": {
+    "evaluate": "node scripts/evaluate.js",
+    "test": "node scripts/test.js",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:start": "npm --prefix backend start",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:build": "npm --prefix frontend run build"
+  }
+}

@@ -116,6 +116,92 @@ export async function generateKit(id) {
   });
 }
 
+/**
+ * Update kit details (title, companyBrief, roleBreakdown, requirements)
+ */
+export async function updateKit(id, data) {
+  return request(`/kits/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  });
+}
+
+/**
+ * Add a custom question to kit
+ */
+export async function addQuestion(id, questionData) {
+  return request(`/kits/${id}/questions`, {
+    method: 'POST',
+    body: JSON.stringify(questionData),
+  });
+}
+
+/**
+ * Update an existing question
+ */
+export async function updateQuestion(id, questionId, questionData) {
+  return request(`/kits/${id}/questions/${questionId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(questionData),
+  });
+}
+
+/**
+ * Delete a question
+ */
+export async function deleteQuestion(id, questionId) {
+  return request(`/kits/${id}/questions/${questionId}`, {
+    method: 'DELETE',
+  });
+}
+
+/**
+ * Reorder questions
+ */
+export async function reorderQuestions(id, questionIds) {
+  return request(`/kits/${id}/questions/reorder`, {
+    method: 'PUT',
+    body: JSON.stringify({ questionIds }),
+  });
+}
+
+/**
+ * Update flashcard confidence / content
+ */
+export async function updateFlashcard(id, flashcardId, flashcardData) {
+  return request(`/kits/${id}/flashcards/${flashcardId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(flashcardData),
+  });
+}
+
+/**
+ * Regenerate Company Brief & Role Breakdown
+ */
+export async function regenerateBrief(id) {
+  return request(`/kits/${id}/regenerate/brief`, {
+    method: 'POST',
+  });
+}
+
+/**
+ * Regenerate questions for a specific category
+ */
+export async function regenerateCategoryQuestions(id, category) {
+  return request(`/kits/${id}/regenerate/questions/${encodeURIComponent(category)}`, {
+    method: 'POST',
+  });
+}
+
+/**
+ * Regenerate study schedule
+ */
+export async function regenerateSchedule(id) {
+  return request(`/kits/${id}/regenerate/schedule`, {
+    method: 'POST',
+  });
+}
+
 const api = {
   register,
   login,
@@ -126,6 +212,15 @@ const api = {
   getKits,
   getKitById,
   generateKit,
+  updateKit,
+  addQuestion,
+  updateQuestion,
+  deleteQuestion,
+  reorderQuestions,
+  updateFlashcard,
+  regenerateBrief,
+  regenerateCategoryQuestions,
+  regenerateSchedule,
 };
 
 export default api;

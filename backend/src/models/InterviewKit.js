@@ -83,7 +83,7 @@ const interviewKitSchema = new mongoose.Schema(
         questionId: { type: String, required: true },
         front: { type: String, required: true },
         back: { type: String, required: true },
-        confidence: { type: Number, default: null },
+        confidence: { type: mongoose.Schema.Types.Mixed, default: null },
         covered: { type: Boolean, default: false }
       }
     ],
@@ -116,7 +116,8 @@ const interviewKitSchema = new mongoose.Schema(
       mustCovered: [{ type: String }],
       mustUncovered: [{ type: String }],
       niceCovered: [{ type: String }],
-      niceUncovered: [{ type: String }]
+      niceUncovered: [{ type: String }],
+      isComplete: { type: Boolean, default: false }
     }
   },
   {

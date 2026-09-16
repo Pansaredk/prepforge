@@ -1,0 +1,30 @@
+[
+  {
+    "id": "case-001",
+    "title": "Senior Full-Stack Engineer at TechCorp",
+    "company_url": "https://example.com",
+    "days": 5,
+    "jd": "We are looking for a Senior Full-Stack Engineer. Must be proficient in React, Next.js, Node.js, Express, and MongoDB. Experience designing scalable RESTful APIs, high test coverage, and clear technical communication required. Nice to have experience with Docker and Kubernetes."
+  },
+  {
+    "id": "case-002",
+    "title": "1-Day Backend Fast Track",
+    "company_url": "https://example.com",
+    "days": 1,
+    "jd": "Seeking a Backend Engineer. Core requirements: Python, PostgreSQL, REST APIs, Microservices, and Git. Team collaboration and problem solving essential."
+  },
+  {
+    "id": "case-003",
+    "title": "60-Day Lead Architect Curriculum",
+    "company_url": "https://example.com",
+    "days": 60,
+    "jd": "Staff Cloud Architect position. Must-have skills: AWS, Cloud Architecture, System Design, Kubernetes, Distributed Systems, and Security. Excellent leadership and stakeholder communication required."
+  },
+  {
+    "id": "case-004",
+    "title": "Resilience Test Case - Unreachable Domain",
+    "company_url": "https://unreachable-company-test-site-987654321.org",
+    "days": 3,
+    "jd": "Junior Frontend Developer role. Requires JavaScript, HTML, CSS, React, and willingness to learn. Good interpersonal skills."
+  }
+]

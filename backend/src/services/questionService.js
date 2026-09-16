@@ -1,4 +1,5 @@
 const { callLlm, generateHeuristicResponse, safeParseJson } = require('./llmService');
+const { deduplicateQuestions } = require('./questionCatalog');
 
 const VALID_CATEGORIES = new Set([
   'Technical',
@@ -13,13 +14,16 @@ const VALID_CATEGORIES = new Set([
 function sanitizeQuestions(questions, validReqIds, startIndex = 1) {
   if (!Array.isArray(questions)) return [];
 
+  // Deduplicate before processing to eliminate exact or semantic near-duplicates
+  const deduplicated = deduplicateQuestions(questions);
+
   const reqSet = new Set(validReqIds);
   const sanitized = [];
   const seenIds = new Set();
   const seenTexts = new Set();
 
-  for (let i = 0; i < questions.length; i++) {
-    const q = questions[i];
+  for (let i = 0; i < deduplicated.length; i++) {
+    const q = deduplicated[i];
     if (!q || typeof q.question !== 'string' || !q.question.trim()) continue;
 
     const trimmedQuestion = q.question.trim();
@@ -89,8 +93,12 @@ function sanitizeQuestions(questions, validReqIds, startIndex = 1) {
 async function generateQuestionBank(jobDescription, title, requirements, companyUrl) {
   const validReqIds = requirements.map((r) => r.id);
 
+  const targetMin = Math.max(15, Math.min(30, requirements.length * 2 + 4));
+  const targetMax = Math.max(20, Math.min(40, requirements.length * 3 + 6));
+
   const prompt = `
-You are a senior technical hiring manager designing an interview question bank for the role "${title}".
+You are a senior technical hiring manager and interview panel lead designing a comprehensive interview question bank for the role "${title}".
+
 REQUIREMENTS TO COVER:
 ${JSON.stringify(requirements, null, 2)}
 
@@ -99,23 +107,39 @@ JOB DESCRIPTION:
 ${jobDescription.substring(0, 3000)}
 """
 
-Generate between 6 and 12 high-impact interview questions.
+GOAL:
+Generate a realistic, comprehensive interview question bank containing between ${targetMin} and ${targetMax} high-quality questions grounded directly in the requirements above (target 20-35 questions for a full technical JD).
+
+QUESTION DISTRIBUTION & ANGLES:
+1. For each technical requirement, provide 2 to 4 questions exploring different angles:
+   - Fundamental concepts and core language/framework behaviors
+   - Practical implementation, error handling, and coding scenarios
+   - Production architecture, scalability, and design trade-offs
+   - Debugging, troubleshooting, and edge cases
+2. Include 2 to 4 Behavioral questions (evaluating teamwork, conflict resolution, technical ownership using STAR format).
+3. Include 2 to 4 Role-specific or System Integration questions (end-to-end full-stack workflow, state synchronization, production deployment).
+
 RULES:
-1. Return ONLY a JSON object:
+1. Return ONLY a JSON object with this exact structure:
 {
   "questions": [
     {
       "id": "q-001",
       "category": "Technical", // Must be one of: Technical, Behavioral, Role-specific, Company-specific
-      "question": "Question text...",
-      "answerOutline": ["Point 1", "Point 2", "Point 3"],
+      "question": "Clear, realistic interview question...",
+      "answerOutline": [
+        "Core concept or context",
+        "Concrete implementation or STAR response",
+        "Key trade-offs or production takeaways"
+      ],
       "requirementIds": ["req-001"], // MUST reference existing requirement IDs from the list above
       "durationMinutes": 5 // MUST be an integer between 3 and 15
     }
   ]
 }
 2. Ensure EVERY requirement ID from the list is covered by at least one question.
-3. Keep durationMinutes strictly as integers.
+3. Do NOT generate duplicate or nearly identical questions.
+4. Keep durationMinutes strictly as integers between 3 and 15.
 `.trim();
 
   const raw = await callLlm(prompt, { json: true });

@@ -1,0 +1,2398 @@
+{
+  "assessment_id": "FS-AI-INTERVIEW-01",
+  "generated_at": "2026-09-15T09:03:55.817Z",
+  "summary": {
+    "total": 4,
+    "completed": 4,
+    "failed": 0
+  },
+  "cases": [
+    {
+      "id": "case-001",
+      "status": "completed",
+      "title": "Senior Full-Stack Engineer at TechCorp",
+      "company_url": "https://example.com",
+      "companyUrl": "https://example.com",
+      "days": 5,
+      "company_brief": {
+        "overview": "Based on company research, this organization operates in technology solutions with emphasis on modern software delivery and user-focused products.",
+        "products": [
+          "Web and Mobile Applications",
+          "Cloud Architecture and Services",
+          "Internal Developer Tooling"
+        ],
+        "industry": "Software & Technology Services",
+        "culture": [
+          "Collaborative engineering environment",
+          "Fast-paced agile delivery",
+          "Emphasis on technical excellence"
+        ],
+        "interview_context": "Interviews evaluate both technical proficiency against core requirements and behavioral alignment with teamwork values."
+      },
+      "companyBrief": {
+        "overview": "Based on company research, this organization operates in technology solutions with emphasis on modern software delivery and user-focused products.",
+        "products": [
+          "Web and Mobile Applications",
+          "Cloud Architecture and Services",
+          "Internal Developer Tooling"
+        ],
+        "industry": "Software & Technology Services",
+        "culture": [
+          "Collaborative engineering environment",
+          "Fast-paced agile delivery",
+          "Emphasis on technical excellence"
+        ],
+        "interviewContext": "Interviews evaluate both technical proficiency against core requirements and behavioral alignment with teamwork values."
+      },
+      "role_breakdown": {
+        "summary": "Role focused on Senior Full-Stack Engineer at TechCorp, contributing to application architecture, development, and team collaboration.",
+        "responsibilities": [
+          "Design and implement reliable, scalable software solutions",
+          "Participate in code reviews and architectural discussions",
+          "Collaborate with product and design peers on feature requirements",
+          "Maintain system reliability and high test coverage"
+        ],
+        "required_skills": [
+          "React",
+          "Next.js",
+          "Node.js",
+          "Express"
+        ],
+        "nice_to_have_skills": [
+          "MongoDB",
+          "Docker",
+          "Kubernetes"
+        ],
+        "interview_focus_areas": [
+          "Core Technology Proficiency",
+          "System Design & Problem Solving",
+          "Behavioral & Culture Fit"
+        ]
+      },
+      "roleBreakdown": {
+        "summary": "Role focused on Senior Full-Stack Engineer at TechCorp, contributing to application architecture, development, and team collaboration.",
+        "responsibilities": [
+          "Design and implement reliable, scalable software solutions",
+          "Participate in code reviews and architectural discussions",
+          "Collaborate with product and design peers on feature requirements",
+          "Maintain system reliability and high test coverage"
+        ],
+        "requiredSkills": [
+          "React",
+          "Next.js",
+          "Node.js",
+          "Express"
+        ],
+        "niceToHaveSkills": [
+          "MongoDB",
+          "Docker",
+          "Kubernetes"
+        ],
+        "interviewFocusAreas": [
+          "Core Technology Proficiency",
+          "System Design & Problem Solving",
+          "Behavioral & Culture Fit"
+        ]
+      },
+      "requirements": [
+        {
+          "id": "req-001",
+          "text": "Proficiency in React and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-002",
+          "text": "Proficiency in Next.js and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-003",
+          "text": "Proficiency in Node.js and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-004",
+          "text": "Proficiency in Express and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-005",
+          "text": "Proficiency in MongoDB and associated engineering best practices",
+          "must": false,
+          "nice": true
+        },
+        {
+          "id": "req-006",
+          "text": "Proficiency in Docker and associated engineering best practices",
+          "must": false,
+          "nice": true
+        },
+        {
+          "id": "req-007",
+          "text": "Cross-functional collaboration and clear technical communication",
+          "must": true,
+          "nice": false
+        }
+      ],
+      "questions": [
+        {
+          "id": "q-001",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in React and associated engineering best practices.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-001"
+          ],
+          "requirementIds": [
+            "req-001"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        },
+        {
+          "id": "q-002",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Next.js and associated engineering best practices.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-002"
+          ],
+          "requirementIds": [
+            "req-002"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        },
+        {
+          "id": "q-003",
+          "category": "Role-specific",
+          "question": "How would you approach designing a feature that heavily relies on Proficiency in Node.js and associated engineering best practices? What architectural trade-offs would you consider?",
+          "answer_outline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "answerOutline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "requirement_ids": [
+            "req-003"
+          ],
+          "requirementIds": [
+            "req-003"
+          ],
+          "duration_minutes": 8,
+          "durationMinutes": 8,
+          "source": "generated"
+        },
+        {
+          "id": "q-004",
+          "category": "Behavioral",
+          "question": "Describe a challenging situation where you had to demonstrate Proficiency in Express and associated engineering best practices. How did you navigate it and what was the outcome?",
+          "answer_outline": [
+            "Context: Set the project background and the challenge faced",
+            "Action: Specific steps taken to address the situation using STAR method",
+            "Result: Measurable impact and lessons learned"
+          ],
+          "answerOutline": [
+            "Context: Set the project background and the challenge faced",
+            "Action: Specific steps taken to address the situation using STAR method",
+            "Result: Measurable impact and lessons learned"
+          ],
+          "requirement_ids": [
+            "req-004"
+          ],
+          "requirementIds": [
+            "req-004"
+          ],
+          "duration_minutes": 7,
+          "durationMinutes": 7,
+          "source": "generated"
+        },
+        {
+          "id": "q-005",
+          "category": "Company-specific",
+          "question": "How does your experience with Proficiency in MongoDB and associated engineering best practices prepare you to contribute to our engineering goals and product scale?",
+          "answer_outline": [
+            "Highlight past direct hands-on experience",
+            "Connect technical skill to high-availability user experience",
+            "Explain eagerness to adopt team engineering standards"
+          ],
+          "answerOutline": [
+            "Highlight past direct hands-on experience",
+            "Connect technical skill to high-availability user experience",
+            "Explain eagerness to adopt team engineering standards"
+          ],
+          "requirement_ids": [
+            "req-005"
+          ],
+          "requirementIds": [
+            "req-005"
+          ],
+          "duration_minutes": 5,
+          "durationMinutes": 5,
+          "source": "generated"
+        },
+        {
+          "id": "q-006",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Docker and associated engineering best practices.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-006"
+          ],
+          "requirementIds": [
+            "req-006"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        },
+        {
+          "id": "q-007",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Cross-functional collaboration and clear technical communication.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-007"
+          ],
+          "requirementIds": [
+            "req-007"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        }
+      ],
+      "questionBank": [
+        {
+          "id": "q-001",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in React and associated engineering best practices.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-001"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-002",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Next.js and associated engineering best practices.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-002"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-003",
+          "category": "Role-specific",
+          "question": "How would you approach designing a feature that heavily relies on Proficiency in Node.js and associated engineering best practices? What architectural trade-offs would you consider?",
+          "answerOutline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "requirementIds": [
+            "req-003"
+          ],
+          "durationMinutes": 8,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-004",
+          "category": "Behavioral",
+          "question": "Describe a challenging situation where you had to demonstrate Proficiency in Express and associated engineering best practices. How did you navigate it and what was the outcome?",
+          "answerOutline": [
+            "Context: Set the project background and the challenge faced",
+            "Action: Specific steps taken to address the situation using STAR method",
+            "Result: Measurable impact and lessons learned"
+          ],
+          "requirementIds": [
+            "req-004"
+          ],
+          "durationMinutes": 7,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-005",
+          "category": "Company-specific",
+          "question": "How does your experience with Proficiency in MongoDB and associated engineering best practices prepare you to contribute to our engineering goals and product scale?",
+          "answerOutline": [
+            "Highlight past direct hands-on experience",
+            "Connect technical skill to high-availability user experience",
+            "Explain eagerness to adopt team engineering standards"
+          ],
+          "requirementIds": [
+            "req-005"
+          ],
+          "durationMinutes": 5,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-006",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Docker and associated engineering best practices.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-006"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-007",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Cross-functional collaboration and clear technical communication.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-007"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "fc-001",
+          "question_id": "q-001",
+          "questionId": "q-001",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in React and associated engineering best practices.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        },
+        {
+          "id": "fc-002",
+          "question_id": "q-002",
+          "questionId": "q-002",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Next.js and associated engineering best practices.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        },
+        {
+          "id": "fc-003",
+          "question_id": "q-003",
+          "questionId": "q-003",
+          "front": "How would you approach designing a feature that heavily relies on Proficiency in Node.js and associated engineering best practices? What architectural trade-offs would you consider?",
+          "back": "1. Requirement analysis and constraint identification\n2. Component breakdown and data flow diagram\n3. Trade-off discussion between simplicity, performance, and scalability"
+        },
+        {
+          "id": "fc-004",
+          "question_id": "q-004",
+          "questionId": "q-004",
+          "front": "Describe a challenging situation where you had to demonstrate Proficiency in Express and associated engineering best practices. How did you navigate it and what was the outcome?",
+          "back": "1. Context: Set the project background and the challenge faced\n2. Action: Specific steps taken to address the situation using STAR method\n3. Result: Measurable impact and lessons learned"
+        },
+        {
+          "id": "fc-005",
+          "question_id": "q-005",
+          "questionId": "q-005",
+          "front": "How does your experience with Proficiency in MongoDB and associated engineering best practices prepare you to contribute to our engineering goals and product scale?",
+          "back": "1. Highlight past direct hands-on experience\n2. Connect technical skill to high-availability user experience\n3. Explain eagerness to adopt team engineering standards"
+        },
+        {
+          "id": "fc-006",
+          "question_id": "q-006",
+          "questionId": "q-006",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Docker and associated engineering best practices.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        },
+        {
+          "id": "fc-007",
+          "question_id": "q-007",
+          "questionId": "q-007",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Cross-functional collaboration and clear technical communication.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        }
+      ],
+      "schedule": {
+        "days": [
+          {
+            "day": 1,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001",
+              "q-006"
+            ],
+            "questionIds": [
+              "q-001",
+              "q-006"
+            ],
+            "minutes": 12
+          },
+          {
+            "day": 2,
+            "focus": "Deep Dive: Technical & Company-specific",
+            "question_ids": [
+              "q-002",
+              "q-005"
+            ],
+            "questionIds": [
+              "q-002",
+              "q-005"
+            ],
+            "minutes": 11
+          },
+          {
+            "day": 3,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-007"
+            ],
+            "questionIds": [
+              "q-007"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 4,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 5,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          }
+        ]
+      },
+      "coverage": {
+        "passes": 1,
+        "must_covered": [
+          "req-001",
+          "req-002",
+          "req-003",
+          "req-004",
+          "req-007"
+        ],
+        "mustCovered": [
+          "req-001",
+          "req-002",
+          "req-003",
+          "req-004",
+          "req-007"
+        ],
+        "must_uncovered": [],
+        "mustUncovered": [],
+        "nice_covered": [
+          "req-005",
+          "req-006"
+        ],
+        "niceCovered": [
+          "req-005",
+          "req-006"
+        ],
+        "nice_uncovered": [],
+        "niceUncovered": []
+      },
+      "research": {
+        "sources": [
+          {
+            "url": "https://example.com/",
+            "title": "Example Domain",
+            "status": "success"
+          }
+        ],
+        "errors": [],
+        "public_discussion": {
+          "available": false,
+          "sources": []
+        }
+      }
+    },
+    {
+      "id": "case-002",
+      "status": "completed",
+      "title": "1-Day Backend Fast Track",
+      "company_url": "https://example.com",
+      "companyUrl": "https://example.com",
+      "days": 1,
+      "company_brief": {
+        "overview": "Based on company research, this organization operates in technology solutions with emphasis on modern software delivery and user-focused products.",
+        "products": [
+          "Web and Mobile Applications",
+          "Cloud Architecture and Services",
+          "Internal Developer Tooling"
+        ],
+        "industry": "Software & Technology Services",
+        "culture": [
+          "Collaborative engineering environment",
+          "Fast-paced agile delivery",
+          "Emphasis on technical excellence"
+        ],
+        "interview_context": "Interviews evaluate both technical proficiency against core requirements and behavioral alignment with teamwork values."
+      },
+      "companyBrief": {
+        "overview": "Based on company research, this organization operates in technology solutions with emphasis on modern software delivery and user-focused products.",
+        "products": [
+          "Web and Mobile Applications",
+          "Cloud Architecture and Services",
+          "Internal Developer Tooling"
+        ],
+        "industry": "Software & Technology Services",
+        "culture": [
+          "Collaborative engineering environment",
+          "Fast-paced agile delivery",
+          "Emphasis on technical excellence"
+        ],
+        "interviewContext": "Interviews evaluate both technical proficiency against core requirements and behavioral alignment with teamwork values."
+      },
+      "role_breakdown": {
+        "summary": "Role focused on 1-Day Backend Fast Track, contributing to application architecture, development, and team collaboration.",
+        "responsibilities": [
+          "Design and implement reliable, scalable software solutions",
+          "Participate in code reviews and architectural discussions",
+          "Collaborate with product and design peers on feature requirements",
+          "Maintain system reliability and high test coverage"
+        ],
+        "required_skills": [
+          "Python",
+          "PostgreSQL",
+          "REST",
+          "Git"
+        ],
+        "nice_to_have_skills": [
+          "Microservices"
+        ],
+        "interview_focus_areas": [
+          "Core Technology Proficiency",
+          "System Design & Problem Solving",
+          "Behavioral & Culture Fit"
+        ]
+      },
+      "roleBreakdown": {
+        "summary": "Role focused on 1-Day Backend Fast Track, contributing to application architecture, development, and team collaboration.",
+        "responsibilities": [
+          "Design and implement reliable, scalable software solutions",
+          "Participate in code reviews and architectural discussions",
+          "Collaborate with product and design peers on feature requirements",
+          "Maintain system reliability and high test coverage"
+        ],
+        "requiredSkills": [
+          "Python",
+          "PostgreSQL",
+          "REST",
+          "Git"
+        ],
+        "niceToHaveSkills": [
+          "Microservices"
+        ],
+        "interviewFocusAreas": [
+          "Core Technology Proficiency",
+          "System Design & Problem Solving",
+          "Behavioral & Culture Fit"
+        ]
+      },
+      "requirements": [
+        {
+          "id": "req-001",
+          "text": "Proficiency in Python and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-002",
+          "text": "Proficiency in PostgreSQL and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-003",
+          "text": "Proficiency in REST and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-004",
+          "text": "Proficiency in Git and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-005",
+          "text": "Proficiency in Microservices and associated engineering best practices",
+          "must": false,
+          "nice": true
+        },
+        {
+          "id": "req-006",
+          "text": "Cross-functional collaboration and clear technical communication",
+          "must": true,
+          "nice": false
+        }
+      ],
+      "questions": [
+        {
+          "id": "q-001",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Python and associated engineering best practices.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-001"
+          ],
+          "requirementIds": [
+            "req-001"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        },
+        {
+          "id": "q-002",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in PostgreSQL and associated engineering best practices.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-002"
+          ],
+          "requirementIds": [
+            "req-002"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        },
+        {
+          "id": "q-003",
+          "category": "Role-specific",
+          "question": "How would you approach designing a feature that heavily relies on Proficiency in REST and associated engineering best practices? What architectural trade-offs would you consider?",
+          "answer_outline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "answerOutline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "requirement_ids": [
+            "req-003"
+          ],
+          "requirementIds": [
+            "req-003"
+          ],
+          "duration_minutes": 8,
+          "durationMinutes": 8,
+          "source": "generated"
+        },
+        {
+          "id": "q-004",
+          "category": "Behavioral",
+          "question": "Describe a challenging situation where you had to demonstrate Proficiency in Git and associated engineering best practices. How did you navigate it and what was the outcome?",
+          "answer_outline": [
+            "Context: Set the project background and the challenge faced",
+            "Action: Specific steps taken to address the situation using STAR method",
+            "Result: Measurable impact and lessons learned"
+          ],
+          "answerOutline": [
+            "Context: Set the project background and the challenge faced",
+            "Action: Specific steps taken to address the situation using STAR method",
+            "Result: Measurable impact and lessons learned"
+          ],
+          "requirement_ids": [
+            "req-004"
+          ],
+          "requirementIds": [
+            "req-004"
+          ],
+          "duration_minutes": 7,
+          "durationMinutes": 7,
+          "source": "generated"
+        },
+        {
+          "id": "q-005",
+          "category": "Company-specific",
+          "question": "How does your experience with Proficiency in Microservices and associated engineering best practices prepare you to contribute to our engineering goals and product scale?",
+          "answer_outline": [
+            "Highlight past direct hands-on experience",
+            "Connect technical skill to high-availability user experience",
+            "Explain eagerness to adopt team engineering standards"
+          ],
+          "answerOutline": [
+            "Highlight past direct hands-on experience",
+            "Connect technical skill to high-availability user experience",
+            "Explain eagerness to adopt team engineering standards"
+          ],
+          "requirement_ids": [
+            "req-005"
+          ],
+          "requirementIds": [
+            "req-005"
+          ],
+          "duration_minutes": 5,
+          "durationMinutes": 5,
+          "source": "generated"
+        },
+        {
+          "id": "q-006",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Cross-functional collaboration and clear technical communication.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-006"
+          ],
+          "requirementIds": [
+            "req-006"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        }
+      ],
+      "questionBank": [
+        {
+          "id": "q-001",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Python and associated engineering best practices.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-001"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-002",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in PostgreSQL and associated engineering best practices.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-002"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-003",
+          "category": "Role-specific",
+          "question": "How would you approach designing a feature that heavily relies on Proficiency in REST and associated engineering best practices? What architectural trade-offs would you consider?",
+          "answerOutline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "requirementIds": [
+            "req-003"
+          ],
+          "durationMinutes": 8,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-004",
+          "category": "Behavioral",
+          "question": "Describe a challenging situation where you had to demonstrate Proficiency in Git and associated engineering best practices. How did you navigate it and what was the outcome?",
+          "answerOutline": [
+            "Context: Set the project background and the challenge faced",
+            "Action: Specific steps taken to address the situation using STAR method",
+            "Result: Measurable impact and lessons learned"
+          ],
+          "requirementIds": [
+            "req-004"
+          ],
+          "durationMinutes": 7,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-005",
+          "category": "Company-specific",
+          "question": "How does your experience with Proficiency in Microservices and associated engineering best practices prepare you to contribute to our engineering goals and product scale?",
+          "answerOutline": [
+            "Highlight past direct hands-on experience",
+            "Connect technical skill to high-availability user experience",
+            "Explain eagerness to adopt team engineering standards"
+          ],
+          "requirementIds": [
+            "req-005"
+          ],
+          "durationMinutes": 5,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-006",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Cross-functional collaboration and clear technical communication.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-006"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "fc-001",
+          "question_id": "q-001",
+          "questionId": "q-001",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Python and associated engineering best practices.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        },
+        {
+          "id": "fc-002",
+          "question_id": "q-002",
+          "questionId": "q-002",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in PostgreSQL and associated engineering best practices.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        },
+        {
+          "id": "fc-003",
+          "question_id": "q-003",
+          "questionId": "q-003",
+          "front": "How would you approach designing a feature that heavily relies on Proficiency in REST and associated engineering best practices? What architectural trade-offs would you consider?",
+          "back": "1. Requirement analysis and constraint identification\n2. Component breakdown and data flow diagram\n3. Trade-off discussion between simplicity, performance, and scalability"
+        },
+        {
+          "id": "fc-004",
+          "question_id": "q-004",
+          "questionId": "q-004",
+          "front": "Describe a challenging situation where you had to demonstrate Proficiency in Git and associated engineering best practices. How did you navigate it and what was the outcome?",
+          "back": "1. Context: Set the project background and the challenge faced\n2. Action: Specific steps taken to address the situation using STAR method\n3. Result: Measurable impact and lessons learned"
+        },
+        {
+          "id": "fc-005",
+          "question_id": "q-005",
+          "questionId": "q-005",
+          "front": "How does your experience with Proficiency in Microservices and associated engineering best practices prepare you to contribute to our engineering goals and product scale?",
+          "back": "1. Highlight past direct hands-on experience\n2. Connect technical skill to high-availability user experience\n3. Explain eagerness to adopt team engineering standards"
+        },
+        {
+          "id": "fc-006",
+          "question_id": "q-006",
+          "questionId": "q-006",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Cross-functional collaboration and clear technical communication.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        }
+      ],
+      "schedule": {
+        "days": [
+          {
+            "day": 1,
+            "focus": "Comprehensive Crash Course & Core Review",
+            "question_ids": [
+              "q-001",
+              "q-002",
+              "q-003",
+              "q-004",
+              "q-005",
+              "q-006"
+            ],
+            "questionIds": [
+              "q-001",
+              "q-002",
+              "q-003",
+              "q-004",
+              "q-005",
+              "q-006"
+            ],
+            "minutes": 38
+          }
+        ]
+      },
+      "coverage": {
+        "passes": 1,
+        "must_covered": [
+          "req-001",
+          "req-002",
+          "req-003",
+          "req-004",
+          "req-006"
+        ],
+        "mustCovered": [
+          "req-001",
+          "req-002",
+          "req-003",
+          "req-004",
+          "req-006"
+        ],
+        "must_uncovered": [],
+        "mustUncovered": [],
+        "nice_covered": [
+          "req-005"
+        ],
+        "niceCovered": [
+          "req-005"
+        ],
+        "nice_uncovered": [],
+        "niceUncovered": []
+      },
+      "research": {
+        "sources": [
+          {
+            "url": "https://example.com/",
+            "title": "Example Domain",
+            "status": "success"
+          }
+        ],
+        "errors": [],
+        "public_discussion": {
+          "available": false,
+          "sources": []
+        }
+      }
+    },
+    {
+      "id": "case-003",
+      "status": "completed",
+      "title": "60-Day Lead Architect Curriculum",
+      "company_url": "https://example.com",
+      "companyUrl": "https://example.com",
+      "days": 60,
+      "company_brief": {
+        "overview": "Based on company research, this organization operates in technology solutions with emphasis on modern software delivery and user-focused products.",
+        "products": [
+          "Web and Mobile Applications",
+          "Cloud Architecture and Services",
+          "Internal Developer Tooling"
+        ],
+        "industry": "Software & Technology Services",
+        "culture": [
+          "Collaborative engineering environment",
+          "Fast-paced agile delivery",
+          "Emphasis on technical excellence"
+        ],
+        "interview_context": "Interviews evaluate both technical proficiency against core requirements and behavioral alignment with teamwork values."
+      },
+      "companyBrief": {
+        "overview": "Based on company research, this organization operates in technology solutions with emphasis on modern software delivery and user-focused products.",
+        "products": [
+          "Web and Mobile Applications",
+          "Cloud Architecture and Services",
+          "Internal Developer Tooling"
+        ],
+        "industry": "Software & Technology Services",
+        "culture": [
+          "Collaborative engineering environment",
+          "Fast-paced agile delivery",
+          "Emphasis on technical excellence"
+        ],
+        "interviewContext": "Interviews evaluate both technical proficiency against core requirements and behavioral alignment with teamwork values."
+      },
+      "role_breakdown": {
+        "summary": "Role focused on 60-Day Lead Architect Curriculum, contributing to application architecture, development, and team collaboration.",
+        "responsibilities": [
+          "Design and implement reliable, scalable software solutions",
+          "Participate in code reviews and architectural discussions",
+          "Collaborate with product and design peers on feature requirements",
+          "Maintain system reliability and high test coverage"
+        ],
+        "required_skills": [
+          "Kubernetes",
+          "AWS",
+          "System Design"
+        ],
+        "nice_to_have_skills": [
+          "Cloud Infrastructure",
+          "CI/CD Pipelines"
+        ],
+        "interview_focus_areas": [
+          "Core Technology Proficiency",
+          "System Design & Problem Solving",
+          "Behavioral & Culture Fit"
+        ]
+      },
+      "roleBreakdown": {
+        "summary": "Role focused on 60-Day Lead Architect Curriculum, contributing to application architecture, development, and team collaboration.",
+        "responsibilities": [
+          "Design and implement reliable, scalable software solutions",
+          "Participate in code reviews and architectural discussions",
+          "Collaborate with product and design peers on feature requirements",
+          "Maintain system reliability and high test coverage"
+        ],
+        "requiredSkills": [
+          "Kubernetes",
+          "AWS",
+          "System Design"
+        ],
+        "niceToHaveSkills": [
+          "Cloud Infrastructure",
+          "CI/CD Pipelines"
+        ],
+        "interviewFocusAreas": [
+          "Core Technology Proficiency",
+          "System Design & Problem Solving",
+          "Behavioral & Culture Fit"
+        ]
+      },
+      "requirements": [
+        {
+          "id": "req-001",
+          "text": "Proficiency in Kubernetes and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-002",
+          "text": "Proficiency in AWS and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-003",
+          "text": "Proficiency in System Design and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-004",
+          "text": "Cross-functional collaboration and clear technical communication",
+          "must": true,
+          "nice": false
+        }
+      ],
+      "questions": [
+        {
+          "id": "q-001",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Kubernetes and associated engineering best practices.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-001"
+          ],
+          "requirementIds": [
+            "req-001"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        },
+        {
+          "id": "q-002",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in AWS and associated engineering best practices.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-002"
+          ],
+          "requirementIds": [
+            "req-002"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        },
+        {
+          "id": "q-003",
+          "category": "Role-specific",
+          "question": "How would you approach designing a feature that heavily relies on Proficiency in System Design and associated engineering best practices? What architectural trade-offs would you consider?",
+          "answer_outline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "answerOutline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "requirement_ids": [
+            "req-003"
+          ],
+          "requirementIds": [
+            "req-003"
+          ],
+          "duration_minutes": 8,
+          "durationMinutes": 8,
+          "source": "generated"
+        },
+        {
+          "id": "q-004",
+          "category": "Behavioral",
+          "question": "Describe a challenging situation where you had to demonstrate Cross-functional collaboration and clear technical communication. How did you navigate it and what was the outcome?",
+          "answer_outline": [
+            "Context: Set the project background and the challenge faced",
+            "Action: Specific steps taken to address the situation using STAR method",
+            "Result: Measurable impact and lessons learned"
+          ],
+          "answerOutline": [
+            "Context: Set the project background and the challenge faced",
+            "Action: Specific steps taken to address the situation using STAR method",
+            "Result: Measurable impact and lessons learned"
+          ],
+          "requirement_ids": [
+            "req-004"
+          ],
+          "requirementIds": [
+            "req-004"
+          ],
+          "duration_minutes": 7,
+          "durationMinutes": 7,
+          "source": "generated"
+        }
+      ],
+      "questionBank": [
+        {
+          "id": "q-001",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Kubernetes and associated engineering best practices.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-001"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-002",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in AWS and associated engineering best practices.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-002"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-003",
+          "category": "Role-specific",
+          "question": "How would you approach designing a feature that heavily relies on Proficiency in System Design and associated engineering best practices? What architectural trade-offs would you consider?",
+          "answerOutline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "requirementIds": [
+            "req-003"
+          ],
+          "durationMinutes": 8,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-004",
+          "category": "Behavioral",
+          "question": "Describe a challenging situation where you had to demonstrate Cross-functional collaboration and clear technical communication. How did you navigate it and what was the outcome?",
+          "answerOutline": [
+            "Context: Set the project background and the challenge faced",
+            "Action: Specific steps taken to address the situation using STAR method",
+            "Result: Measurable impact and lessons learned"
+          ],
+          "requirementIds": [
+            "req-004"
+          ],
+          "durationMinutes": 7,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "fc-001",
+          "question_id": "q-001",
+          "questionId": "q-001",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in Kubernetes and associated engineering best practices.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        },
+        {
+          "id": "fc-002",
+          "question_id": "q-002",
+          "questionId": "q-002",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in AWS and associated engineering best practices.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        },
+        {
+          "id": "fc-003",
+          "question_id": "q-003",
+          "questionId": "q-003",
+          "front": "How would you approach designing a feature that heavily relies on Proficiency in System Design and associated engineering best practices? What architectural trade-offs would you consider?",
+          "back": "1. Requirement analysis and constraint identification\n2. Component breakdown and data flow diagram\n3. Trade-off discussion between simplicity, performance, and scalability"
+        },
+        {
+          "id": "fc-004",
+          "question_id": "q-004",
+          "questionId": "q-004",
+          "front": "Describe a challenging situation where you had to demonstrate Cross-functional collaboration and clear technical communication. How did you navigate it and what was the outcome?",
+          "back": "1. Context: Set the project background and the challenge faced\n2. Action: Specific steps taken to address the situation using STAR method\n3. Result: Measurable impact and lessons learned"
+        }
+      ],
+      "schedule": {
+        "days": [
+          {
+            "day": 1,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 2,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 3,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 4,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 5,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 6,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 7,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 8,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 9,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 10,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 11,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 12,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 13,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 14,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 15,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 16,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 17,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 18,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 19,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 20,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 21,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 22,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 23,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 24,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 25,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 26,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 27,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 28,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 29,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 30,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 31,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 32,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 33,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 34,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 35,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 36,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 37,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 38,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 39,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 40,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 41,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 42,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 43,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 44,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 45,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 46,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 47,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 48,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 49,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 50,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 51,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 52,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 53,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 54,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 55,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 56,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          },
+          {
+            "day": 57,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 58,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 59,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          },
+          {
+            "day": 60,
+            "focus": "Behavioral Focus & Practice",
+            "question_ids": [
+              "q-004"
+            ],
+            "questionIds": [
+              "q-004"
+            ],
+            "minutes": 7
+          }
+        ]
+      },
+      "coverage": {
+        "passes": 1,
+        "must_covered": [
+          "req-001",
+          "req-002",
+          "req-003",
+          "req-004"
+        ],
+        "mustCovered": [
+          "req-001",
+          "req-002",
+          "req-003",
+          "req-004"
+        ],
+        "must_uncovered": [],
+        "mustUncovered": [],
+        "nice_covered": [],
+        "niceCovered": [],
+        "nice_uncovered": [],
+        "niceUncovered": []
+      },
+      "research": {
+        "sources": [
+          {
+            "url": "https://example.com/",
+            "title": "Example Domain",
+            "status": "success"
+          }
+        ],
+        "errors": [],
+        "public_discussion": {
+          "available": false,
+          "sources": []
+        }
+      }
+    },
+    {
+      "id": "case-004",
+      "status": "completed",
+      "title": "Resilience Test Case - Unreachable Domain",
+      "company_url": "https://unreachable-company-test-site-987654321.org",
+      "companyUrl": "https://unreachable-company-test-site-987654321.org",
+      "days": 3,
+      "company_brief": {
+        "overview": "Based on available information for Resilience Test Case - Unreachable Domain, this organization emphasizes high-quality software engineering, continuous learning, and scalable architecture.",
+        "products": [
+          "Web and Mobile Applications",
+          "Cloud Architecture and Services",
+          "Internal Developer Tooling"
+        ],
+        "industry": "Software & Technology Services",
+        "culture": [
+          "Collaborative engineering environment",
+          "Fast-paced agile delivery",
+          "Emphasis on technical excellence"
+        ],
+        "interview_context": "Interviews evaluate both technical proficiency against core requirements and behavioral alignment with teamwork values."
+      },
+      "companyBrief": {
+        "overview": "Based on available information for Resilience Test Case - Unreachable Domain, this organization emphasizes high-quality software engineering, continuous learning, and scalable architecture.",
+        "products": [
+          "Web and Mobile Applications",
+          "Cloud Architecture and Services",
+          "Internal Developer Tooling"
+        ],
+        "industry": "Software & Technology Services",
+        "culture": [
+          "Collaborative engineering environment",
+          "Fast-paced agile delivery",
+          "Emphasis on technical excellence"
+        ],
+        "interviewContext": "Interviews evaluate both technical proficiency against core requirements and behavioral alignment with teamwork values."
+      },
+      "role_breakdown": {
+        "summary": "Role focused on Resilience Test Case - Unreachable Domain, contributing to application architecture, development, and team collaboration.",
+        "responsibilities": [
+          "Design and implement reliable, scalable software solutions",
+          "Participate in code reviews and architectural discussions",
+          "Collaborate with product and design peers on feature requirements",
+          "Maintain system reliability and high test coverage"
+        ],
+        "required_skills": [
+          "React",
+          "JavaScript"
+        ],
+        "nice_to_have_skills": [
+          "Cloud Infrastructure",
+          "CI/CD Pipelines"
+        ],
+        "interview_focus_areas": [
+          "Core Technology Proficiency",
+          "System Design & Problem Solving",
+          "Behavioral & Culture Fit"
+        ]
+      },
+      "roleBreakdown": {
+        "summary": "Role focused on Resilience Test Case - Unreachable Domain, contributing to application architecture, development, and team collaboration.",
+        "responsibilities": [
+          "Design and implement reliable, scalable software solutions",
+          "Participate in code reviews and architectural discussions",
+          "Collaborate with product and design peers on feature requirements",
+          "Maintain system reliability and high test coverage"
+        ],
+        "requiredSkills": [
+          "React",
+          "JavaScript"
+        ],
+        "niceToHaveSkills": [
+          "Cloud Infrastructure",
+          "CI/CD Pipelines"
+        ],
+        "interviewFocusAreas": [
+          "Core Technology Proficiency",
+          "System Design & Problem Solving",
+          "Behavioral & Culture Fit"
+        ]
+      },
+      "requirements": [
+        {
+          "id": "req-001",
+          "text": "Proficiency in React and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-002",
+          "text": "Proficiency in JavaScript and associated engineering best practices",
+          "must": true,
+          "nice": false
+        },
+        {
+          "id": "req-003",
+          "text": "Cross-functional collaboration and clear technical communication",
+          "must": true,
+          "nice": false
+        }
+      ],
+      "questions": [
+        {
+          "id": "q-001",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in React and associated engineering best practices.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-001"
+          ],
+          "requirementIds": [
+            "req-001"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        },
+        {
+          "id": "q-002",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in JavaScript and associated engineering best practices.",
+          "answer_outline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirement_ids": [
+            "req-002"
+          ],
+          "requirementIds": [
+            "req-002"
+          ],
+          "duration_minutes": 6,
+          "durationMinutes": 6,
+          "source": "generated"
+        },
+        {
+          "id": "q-003",
+          "category": "Role-specific",
+          "question": "How would you approach designing a feature that heavily relies on Cross-functional collaboration and clear technical communication? What architectural trade-offs would you consider?",
+          "answer_outline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "answerOutline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "requirement_ids": [
+            "req-003"
+          ],
+          "requirementIds": [
+            "req-003"
+          ],
+          "duration_minutes": 8,
+          "durationMinutes": 8,
+          "source": "generated"
+        }
+      ],
+      "questionBank": [
+        {
+          "id": "q-001",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in React and associated engineering best practices.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-001"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-002",
+          "category": "Technical",
+          "question": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in JavaScript and associated engineering best practices.",
+          "answerOutline": [
+            "Core fundamentals and mental model",
+            "Common performance or concurrency pitfalls and mitigations",
+            "Production-grade implementation standards"
+          ],
+          "requirementIds": [
+            "req-002"
+          ],
+          "durationMinutes": 6,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        },
+        {
+          "id": "q-003",
+          "category": "Role-specific",
+          "question": "How would you approach designing a feature that heavily relies on Cross-functional collaboration and clear technical communication? What architectural trade-offs would you consider?",
+          "answerOutline": [
+            "Requirement analysis and constraint identification",
+            "Component breakdown and data flow diagram",
+            "Trade-off discussion between simplicity, performance, and scalability"
+          ],
+          "requirementIds": [
+            "req-003"
+          ],
+          "durationMinutes": 8,
+          "source": "generated",
+          "edited": false,
+          "pinned": false
+        }
+      ],
+      "flashcards": [
+        {
+          "id": "fc-001",
+          "question_id": "q-001",
+          "questionId": "q-001",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in React and associated engineering best practices.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        },
+        {
+          "id": "fc-002",
+          "question_id": "q-002",
+          "questionId": "q-002",
+          "front": "Explain the core concepts, common pitfalls, and best practices when working with Proficiency in JavaScript and associated engineering best practices.",
+          "back": "1. Core fundamentals and mental model\n2. Common performance or concurrency pitfalls and mitigations\n3. Production-grade implementation standards"
+        },
+        {
+          "id": "fc-003",
+          "question_id": "q-003",
+          "questionId": "q-003",
+          "front": "How would you approach designing a feature that heavily relies on Cross-functional collaboration and clear technical communication? What architectural trade-offs would you consider?",
+          "back": "1. Requirement analysis and constraint identification\n2. Component breakdown and data flow diagram\n3. Trade-off discussion between simplicity, performance, and scalability"
+        }
+      ],
+      "schedule": {
+        "days": [
+          {
+            "day": 1,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-001"
+            ],
+            "questionIds": [
+              "q-001"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 2,
+            "focus": "Technical Focus & Practice",
+            "question_ids": [
+              "q-002"
+            ],
+            "questionIds": [
+              "q-002"
+            ],
+            "minutes": 6
+          },
+          {
+            "day": 3,
+            "focus": "Role-specific Focus & Practice",
+            "question_ids": [
+              "q-003"
+            ],
+            "questionIds": [
+              "q-003"
+            ],
+            "minutes": 8
+          }
+        ]
+      },
+      "coverage": {
+        "passes": 1,
+        "must_covered": [
+          "req-001",
+          "req-002",
+          "req-003"
+        ],
+        "mustCovered": [
+          "req-001",
+          "req-002",
+          "req-003"
+        ],
+        "must_uncovered": [],
+        "mustUncovered": [],
+        "nice_covered": [],
+        "niceCovered": [],
+        "nice_uncovered": [],
+        "niceUncovered": []
+      },
+      "research": {
+        "sources": [],
+        "errors": [
+          "Failed to reach https://unreachable-company-test-site-987654321.org/: fetch failed"
+        ],
+        "public_discussion": {
+          "available": false,
+          "sources": []
+        }
+      }
+    }
+  ]
+}

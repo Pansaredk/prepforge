@@ -2,27 +2,37 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getMe, logout } from '../../lib/api';
-
 import Link from 'next/link';
+import { getMe, getKits, logout } from '../../lib/api';
+import Navbar from '../../components/Navbar';
 
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
+  const [kits, setKits] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loggingOut, setLoggingOut] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     let isMounted = true;
 
-    async function checkAuth() {
+    async function loadDashboard() {
       try {
-        const data = await getMe();
+        const authData = await getMe();
+        if (!isMounted) return;
+
+        if (!authData || !authData.success || !authData.user) {
+          router.push('/login');
+          return;
+        }
+        setUser(authData.user);
+
+        const kitsData = await getKits();
         if (isMounted) {
-          if (data && data.success && data.user) {
-            setUser(data.user);
+          if (kitsData && kitsData.success) {
+            setKits(kitsData.kits || []);
           } else {
-            router.push('/login');
+            setError(kitsData.message || 'Failed to load kits.');
           }
         }
       } catch (err) {
@@ -36,7 +46,7 @@ export default function DashboardPage() {
       }
     }
 
-    checkAuth();
+    loadDashboard();
 
     return () => {
       isMounted = false;
@@ -44,128 +54,167 @@ export default function DashboardPage() {
   }, [router]);
 
   const handleLogout = async () => {
-    setLoggingOut(true);
     try {
       await logout();
-    } catch (err) {
-      console.error('Logout error:', err);
+    } catch (e) {
+      console.error(e);
     } finally {
       router.push('/login');
     }
   };
 
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case 'completed':
+        return (
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-700 border border-emerald-200">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            Completed
+          </span>
+        );
+      case 'generating':
+        return (
+          <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700 border border-amber-200 animate-pulse">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+            Generating...
+          </span>
+        );
+      case 'failed':
+        return (
+          <span className="inline-flex items-center gap-1 rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-700 border border-red-200">
+            <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
+            Failed
+          </span>
+        );
+      default:
+        return (
+          <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-700 border border-slate-200">
+            <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+            Draft
+          </span>
+        );
+    }
+  };
+
   if (loading) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
-          <p className="mt-4 text-sm text-slate-600">Verifying authentication...</p>
-        </div>
-      </main>
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <p className="text-sm text-slate-500">Loading PrepForge Dashboard...</p>
+      </div>
     );
   }
 
-  if (!user) {
-    return null;
-  }
+  if (!user) return null;
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-4xl space-y-8">
-        {/* Navigation Bar */}
-        <nav className="flex items-center justify-between rounded-xl bg-white px-6 py-4 border border-slate-200 shadow-sm">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      <Navbar user={user} onLogout={handleLogout} />
+
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+        {/* Dashboard Header Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-slate-200">
           <div>
-            <span className="text-lg font-bold text-slate-900">PrepForge</span>
-            <span className="ml-2 inline-flex items-center rounded-md bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
-              Stage 3
-            </span>
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+              Dashboard
+            </h1>
+            <p className="mt-1 text-xs sm:text-sm text-slate-500">
+              Manage your interview preparation kits and launch practice sessions.
+            </p>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-slate-600 hidden sm:inline">
-              Logged in as: <strong className="text-slate-800">{user.email}</strong>
-            </span>
-            <button
-              onClick={handleLogout}
-              disabled={loggingOut}
-              className="rounded-lg bg-slate-100 hover:bg-slate-200 px-3.5 py-1.5 text-sm font-medium text-slate-700 transition disabled:opacity-50"
+
+          <div className="flex items-center gap-3">
+            <Link
+              href="/kits/new"
+              className="inline-flex items-center justify-center rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition"
             >
-              {loggingOut ? 'Logging out...' : 'Logout'}
-            </button>
-          </div>
-        </nav>
-
-        {/* Action Cards for Stage 3 Interview Kits */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <Link
-            href="/kits/new"
-            className="rounded-2xl bg-indigo-600 p-6 text-white shadow-sm hover:bg-indigo-700 transition flex flex-col justify-between"
-          >
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-indigo-200">
-                Core Feature
-              </span>
-              <h2 className="mt-2 text-xl font-bold">Create Interview Kit</h2>
-              <p className="mt-2 text-sm text-indigo-100">
-                Provide a Job Description and Company URL to generate a comprehensive prep kit with questions, flashcards, and schedule.
-              </p>
-            </div>
-            <div className="mt-6 text-sm font-semibold text-white flex items-center gap-1">
-              Start Building &rarr;
-            </div>
-          </Link>
-
-          <Link
-            href="/kits"
-            className="rounded-2xl bg-white p-6 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between"
-          >
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Dashboard
-              </span>
-              <h2 className="mt-2 text-xl font-bold text-slate-900">My Interview Kits</h2>
-              <p className="mt-2 text-sm text-slate-600">
-                View, track, and practice your existing generated interview kits and preparation schedules.
-              </p>
-            </div>
-            <div className="mt-6 text-sm font-semibold text-indigo-600 flex items-center gap-1">
-              View All Kits &rarr;
-            </div>
-          </Link>
-        </div>
-
-        {/* Dashboard Profile Card */}
-        <div className="rounded-2xl bg-white p-8 border border-slate-200 shadow-sm">
-          <h2 className="text-xl font-bold tracking-tight text-slate-900">
-            Account & Session Details
-          </h2>
-          <p className="mt-1 text-sm text-slate-600">
-            Authenticated session backed by MongoDB.
-          </p>
-
-          <div className="mt-6 rounded-xl bg-slate-50 border border-slate-200 p-6">
-            <dl className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 text-sm">
-              <div>
-                <dt className="text-slate-500">Email Address</dt>
-                <dd className="mt-1 font-medium text-slate-900">{user.email}</dd>
-              </div>
-              <div>
-                <dt className="text-slate-500">User ID</dt>
-                <dd className="mt-1 font-mono text-xs text-slate-700 bg-white border border-slate-200 px-2 py-1 rounded inline-block">
-                  {user.id}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-slate-500">Authentication Method</dt>
-                <dd className="mt-1 text-emerald-600 font-medium">Session Cookie (HttpOnly)</dd>
-              </div>
-              <div>
-                <dt className="text-slate-500">Session Store</dt>
-                <dd className="mt-1 text-slate-700 font-medium">MongoDB (connect-mongo)</dd>
-              </div>
-            </dl>
+              + Create New Kit
+            </Link>
           </div>
         </div>
-      </div>
-    </main>
+
+        {error && (
+          <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-700">
+            {error}
+          </div>
+        )}
+
+        {/* Existing Interview Kits Section */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-bold text-slate-900">
+              Existing Interview Kits
+            </h2>
+            <span className="text-xs text-slate-500 font-mono">
+              Total: {kits.length}
+            </span>
+          </div>
+
+          {kits.length === 0 ? (
+            <div className="rounded-2xl bg-white p-12 text-center border border-slate-200 shadow-xs">
+              <h3 className="text-base font-semibold text-slate-900">No interview kits created yet</h3>
+              <p className="mt-1 text-sm text-slate-500 max-w-md mx-auto">
+                Paste a job description and company URL to generate targeted questions, flashcards, and a day-by-day study schedule.
+              </p>
+              <div className="mt-6">
+                <Link
+                  href="/kits/new"
+                  className="inline-flex items-center rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition"
+                >
+                  Create Your First Kit
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {kits.map((kit) => {
+                const kitId = kit.id || kit._id;
+                return (
+                  <div
+                    key={kitId}
+                    className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between hover:border-indigo-300 transition"
+                  >
+                    <div>
+                      {/* Status & Days header */}
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className="text-xs font-mono font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                          {kit.days} {kit.days === 1 ? 'Day' : 'Days'}
+                        </span>
+                        {getStatusBadge(kit.status)}
+                      </div>
+
+                      {/* Kit Title */}
+                      <h3 className="text-base font-bold text-slate-900 line-clamp-2">
+                        {kit.title}
+                      </h3>
+
+                      {/* Company */}
+                      <p className="mt-1 text-xs text-slate-500 truncate">
+                        <span className="font-semibold text-slate-600">Target:</span> {kit.companyUrl}
+                      </p>
+                    </div>
+
+                    {/* Footer Actions */}
+                    <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <span className="text-xs text-slate-400">
+                        {kit.createdAt ? new Date(kit.createdAt).toLocaleDateString(undefined, {
+                          month: 'short',
+                          day: 'numeric',
+                        }) : ''}
+                      </span>
+                      <Link
+                        href={`/kits/${kitId}`}
+                        className="rounded-lg bg-indigo-50 px-3.5 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-100 transition"
+                      >
+                        Open Kit &rarr;
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </section>
+      </main>
+    </div>
   );
 }

@@ -1,4 +1,5 @@
 const { safeParseJson } = require('../utils/jsonParser');
+const { buildComprehensiveQuestionBank } = require('./questionCatalog');
 
 const DEFAULT_MODEL = process.env.LLM_MODEL || 'gemini-1.5-flash';
 
@@ -71,8 +72,8 @@ function generateHeuristicResponse(type, context = {}) {
   const knownKeywords = [
     'React', 'Next.js', 'Node.js', 'Express', 'JavaScript', 'TypeScript', 'Python',
     'Java', 'C++', 'Go', 'Rust', 'MongoDB', 'PostgreSQL', 'SQL', 'Redis', 'Docker',
-    'Kubernetes', 'AWS', 'GCP', 'Azure', 'REST', 'GraphQL', 'CI/CD', 'Git',
-    'Microservices', 'System Design', 'Testing', 'Agile', 'Scrum', 'Linux'
+    'Kubernetes', 'AWS', 'GCP', 'Azure', 'REST', 'GraphQL', 'CI/CD', 'Git', 'GitHub',
+    'HTML', 'CSS', 'Redux', 'Tailwind', 'Microservices', 'System Design', 'Testing', 'Agile', 'Scrum', 'Linux'
   ];
 
   for (const kw of knownKeywords) {
@@ -91,8 +92,10 @@ function generateHeuristicResponse(type, context = {}) {
     const reqs = [];
     let count = 1;
 
-    for (let i = 0; i < Math.min(detectedTech.length, 6); i++) {
-      const isMust = i < 4; // First 3-4 are must-haves
+    // Scale requirements with detected skills: 4 to 8 technical requirements
+    const maxTechReqs = Math.min(detectedTech.length, 8);
+    for (let i = 0; i < maxTechReqs; i++) {
+      const isMust = i < Math.min(4, Math.ceil(maxTechReqs * 0.6));
       reqs.push({
         id: `req-${String(count).padStart(3, '0')}`,
         text: `Proficiency in ${detectedTech[i]} and associated engineering best practices`,
@@ -144,68 +147,8 @@ function generateHeuristicResponse(type, context = {}) {
 
   if (type === 'questions') {
     const requirements = context.requirements || [];
-    const questions = [];
-    let qCount = 1;
-
-    const categories = ['Technical', 'Technical', 'Role-specific', 'Behavioral', 'Company-specific'];
-
-    requirements.forEach((req, idx) => {
-      const category = categories[idx % categories.length];
-      const qId = `q-${String(qCount).padStart(3, '0')}`;
-
-      let questionText = '';
-      let answerOutline = [];
-      let duration = 5;
-
-      if (category === 'Behavioral') {
-        questionText = `Describe a challenging situation where you had to demonstrate ${req.text}. How did you navigate it and what was the outcome?`;
-        answerOutline = [
-          'Context: Set the project background and the challenge faced',
-          'Action: Specific steps taken to address the situation using STAR method',
-          'Result: Measurable impact and lessons learned'
-        ];
-        duration = 7;
-      } else if (category === 'Role-specific') {
-        questionText = `How would you approach designing a feature that heavily relies on ${req.text}? What architectural trade-offs would you consider?`;
-        answerOutline = [
-          'Requirement analysis and constraint identification',
-          'Component breakdown and data flow diagram',
-          'Trade-off discussion between simplicity, performance, and scalability'
-        ];
-        duration = 8;
-      } else if (category === 'Company-specific') {
-        questionText = `How does your experience with ${req.text} prepare you to contribute to our engineering goals and product scale?`;
-        answerOutline = [
-          'Highlight past direct hands-on experience',
-          'Connect technical skill to high-availability user experience',
-          'Explain eagerness to adopt team engineering standards'
-        ];
-        duration = 5;
-      } else {
-        questionText = `Explain the core concepts, common pitfalls, and best practices when working with ${req.text}.`;
-        answerOutline = [
-          'Core fundamentals and mental model',
-          'Common performance or concurrency pitfalls and mitigations',
-          'Production-grade implementation standards'
-        ];
-        duration = 6;
-      }
-
-      questions.push({
-        id: qId,
-        category,
-        question: questionText,
-        answerOutline,
-        requirementIds: [req.id],
-        durationMinutes: duration,
-        source: 'generated',
-        edited: false,
-        pinned: false
-      });
-
-      qCount++;
-    });
-
+    const roleTitle = context.title || title || 'Software Engineer';
+    const questions = buildComprehensiveQuestionBank(requirements, roleTitle);
     return { questions };
   }
 
@@ -219,14 +162,14 @@ function generateHeuristicResponse(type, context = {}) {
       questions.push({
         id: qId,
         category: 'Technical',
-        question: `Deep dive: Demonstrate your practical experience with ${req.text} through a real-world scenario.`,
+        question: `Deep Dive: Walk through a production implementation scenario and design trade-offs when applying ${req.text}.`,
         answerOutline: [
-          'Demonstrate theoretical and practical understanding',
-          'Explain specific tools, libraries, or patterns used',
-          'Discuss optimization and error-handling strategies'
+          'Core theoretical fundamentals and engineering constraints',
+          'Concrete implementation details and error mitigation strategies',
+          'Production monitoring, scalability, and test validation approach'
         ],
         requirementIds: [req.id],
-        durationMinutes: 6,
+        durationMinutes: 7,
         source: 'generated',
         edited: false,
         pinned: false
