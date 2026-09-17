@@ -28,6 +28,18 @@ const allowedOrigins = [
   'http://127.0.0.1:3000'
 ];
 
+if (process.env.CLIENT_URL) {
+  const configuredOrigins = process.env.CLIENT_URL.split(',')
+    .map((url) => url.trim().replace(/\/+$/, ''))
+    .filter(Boolean);
+
+  configuredOrigins.forEach((origin) => {
+    if (!allowedOrigins.includes(origin)) {
+      allowedOrigins.push(origin);
+    }
+  });
+}
+
 const corsOptions = {
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps, curl, postman) or matching allowed origins
