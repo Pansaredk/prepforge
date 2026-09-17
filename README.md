@@ -1,350 +1,834 @@
 # PrepForge – AI Interview Preparation Kit
 
-[![Assessment ID](https://img.shields.io/badge/Assessment%20ID-FS--AI--INTERVIEW--01-indigo.svg)](https://github.com/Pansaredk/prepforge)
-[![Node.js](https://img.shields.io/badge/Node.js-v18%2B-green.svg)](https://nodejs.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-14%20(App%20Router)-black.svg)](https://nextjs.org/)
-[![Database](https://img.shields.io/badge/Database-MongoDB%20%2B%20Mongoose-brightgreen.svg)](https://www.mongodb.com/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+PrepForge is a full-stack AI-powered interview preparation platform that transforms a **job description and company website** into a structured, editable interview preparation kit.
 
-**PrepForge** is a full-stack engineering platform that transforms job descriptions and company URLs into personalized, structured interview preparation kits. It features an AI analysis pipeline, an interactive kit builder, an active recall practice deck, a batch evaluation CLI, and an automated verification test suite.
+The project was built for the **Trao Full-Stack AI Interview Assessment** and focuses on reliable AI generation, deterministic scheduling and coverage, user isolation, research/crawling, editable preparation content, and automated evaluation.
 
 ---
 
-## Table of Contents
+## 🚀 Live Demo
 
-1. [Architecture Overview](#architecture-overview)
-2. [Key Features](#key-features)
-   - [Authentication & User Isolation](#1-authentication--user-isolation)
-   - [Core AI Interview Pipeline](#2-core-ai-interview-pipeline)
-   - [Kit Builder & Editing](#3-kit-builder--editing)
-   - [Practice Mode & Active Recall](#4-practice-mode--active-recall)
-   - [Batch Evaluation Engine](#5-batch-evaluation-engine)
-   - [Automated Verification Suite](#6-automated-verification-suite)
-3. [Technology Stack](#technology-stack)
-4. [Project Structure](#project-structure)
-5. [Getting Started](#getting-started)
-   - [Prerequisites](#prerequisites)
-   - [Environment Variables](#environment-variables)
-   - [Backend Installation & Startup](#backend-installation--startup)
-   - [Frontend Installation & Startup](#frontend-installation--startup)
-6. [CLI Commands](#cli-commands)
-   - [Batch Evaluator CLI](#batch-evaluator-cli)
-   - [Automated Test Suite](#automated-test-suite)
-7. [API Specification](#api-specification)
-8. [Security & Production Readiness](#security--production-readiness)
-9. [Design Decisions & Trade-Offs](#design-decisions--trade-offs)
-10. [Known Limitations](#known-limitations)
+**Frontend:**
+https://prepforge-phi.vercel.app
+
+**Backend API:**
+https://prepforge-backend-a05r.onrender.com
+
+> The backend may take some time to wake up on the first request because it is deployed on a free-tier hosting environment.
 
 ---
 
-## Architecture Overview
+## 📌 Assessment
 
-PrepForge is engineered as a decoupled full-stack application:
+**Assessment ID:** `FS-AI-INTERVIEW-01`
 
-```
-                  ┌─────────────────────────────────────────┐
-                  │          Next.js 14 Frontend            │
-                  │   App Router, Tailwind CSS, SSR + CSR   │
-                  └────────────────────┬────────────────────┘
-                                       │ HTTP / Cookies (SameSite, HttpOnly)
-                                       ▼
-                  ┌─────────────────────────────────────────┐
-                  │         Node.js + Express Backend       │
-                  │  Controllers, Services, Auth Middleware │
-                  └─────────┬─────────────────────┬─────────┘
-                            │                     │
-               MongoDB + Mongoose                 │ Deterministic Pipeline Engine
-        (Kits, Users, MongoStore Sessions)        │ (Research, Extraction, Schedule)
-                            ▼                     ▼
-                  ┌───────────────────┐ ┌───────────────────┐
-                  │  MongoDB Database │ │ Batch Evaluator   │
-                  │   localhost:27017 │ │  CLI Runner       │
-                  └───────────────────┘ └───────────────────┘
-```
-
----
-
-## Key Features
-
-### 1. Authentication & User Isolation
-- **Express Sessions**: Backed by MongoDB session store (`connect-mongo`) with HttpOnly cookies, CSRF-resistant `sameSite: 'lax'`, and configurable `secure` cookies.
-- **Password Security**: Passwords hashed with `bcryptjs` (salt rounds: 10).
-- **Strict Ownership**: Every kit operation validates `kit.userId === req.userId`. Users cannot view, modify, or delete kits belonging to other accounts.
-
-### 2. Core AI Interview Pipeline
-- **Company Web Research**: Safe URL crawling with SSRF protection (private IP blocking, protocol enforcement). Resilient fallback extracts domain information and grounds answers directly in the job description if a website is unreachable.
-- **Requirement Extraction**: Parses job descriptions into structured requirements with deterministic classification into `must-have` and `nice-to-have`.
-- **Grounded Question Generation**: Generates Technical, Behavioral, and Situational interview questions mapped to specific requirement IDs.
-- **Coverage Checker & Repair Pass**: Verifies that 100% of must-have requirements are addressed. Automatically generates additional targeted questions if coverage gaps exist.
-- **Deterministic Study Schedule**: Distributes question bank items across the user's preparation timeframe (1 to 60 days). Ensures core must-haves are prioritized in earlier days while keeping study duration balanced.
-- **Active Recall Flashcards**: Generates paired front (prompt) and back (structured talking points) flashcards for every question in the bank.
-
-### 3. Kit Builder & Editing
-- **Company Brief & Role Breakdown Editing**: Modal editor allowing full customization of company overview, products, culture context, responsibilities, and required skills.
-- **Requirements Management**: Add custom requirements, toggle `must-have` vs. `nice-to-have`, or delete requirements with automatic recalculation of coverage percentage.
-- **Question Bank Customization**:
-  - Add custom interview questions with custom answer outlines and requirement mappings.
-  - In-place editing of question text, category, duration, and answer structure.
-  - Reorder questions using intuitive Move Up / Move Down controls.
-  - Delete questions with automatic cascading cleanup of associated flashcards and schedule assignments.
-- **Selective AI Regeneration**:
-  - **Regenerate Brief**: Refreshes company and role summaries from the JD without affecting questions.
-  - **Regenerate Category Questions**: Selectively regenerate Technical, Behavioral, or Situational questions.
-  - **Pinning Protection (`pinned: true`)**: Questions flagged as pinned, edited, or user-created are strictly preserved during selective regeneration.
-  - **Regenerate Schedule**: Recalculates study schedule days and time allocations after question bank changes.
-
-### 4. Practice Mode & Active Recall
-- **Interactive Flashcard Deck**: Clean, focused interface accessible at `/kits/[id]/practice`.
-- **Reveal Answer**: Candidates can formulate their answer before revealing key talking points and structured frameworks.
-- **Confidence Rating**: Rate confidence as **Low**, **Medium**, or **High** after reviewing each card (persisted to MongoDB).
-- **Smart Queue**: Automatically prioritizes unreviewed cards first, followed by low-confidence cards, medium-confidence cards, and finally high-confidence cards.
-- **Session Summary**: Real-time progress bar and comprehensive completion summary with confidence distribution and repeat options.
-
-### 5. Batch Evaluation Engine
-- Command-line runner for batch generating interview kits from a JSON cases file.
-- Strict compliance with TRAO Appendix B JSON output format.
-- Unbreakable pipeline resilience: skips or recovers gracefully from network timeouts or invalid company domains without halting batch execution.
-- Command:
-  ```bash
-  npm run evaluate -- --input cases/sample.json --output cases/output.json
-  ```
-
-### 6. Automated Verification Suite
-- Comprehensive automated test runner executing 16 validation invariants without external network dependencies:
-  - Schedule day count preservation ($days = 1$, $days = 60$).
-  - Schedule integer minute calculations.
-  - Full question bank inclusion in schedules.
-  - Deterministic coverage checker validation.
-  - Schema structural validation.
-  - Batch evaluator error handling and resilience.
-- Command:
-  ```bash
-  npm test
-  ```
-
----
-
-## Technology Stack
-
-- **Frontend**: Next.js 14 (App Router, Client & Server Components), React 18, Tailwind CSS, Heroicons styling.
-- **Backend**: Node.js, Express 4, Mongoose 8, express-session, connect-mongo, bcryptjs, dotenv, cors.
-- **Database**: MongoDB (local or MongoDB Atlas).
-- **Tooling**: ESLint, native Node test runner scripts.
-
----
-
-## Project Structure
+### Core workflow
 
 ```text
-ai-interview-prep/
-├── backend/
-│   ├── src/
-│   │   ├── config/             # Database connection & session configuration
-│   │   ├── controllers/        # Request handlers (authController, kitController)
-│   │   ├── middleware/         # Authentication and error handling middleware
-│   │   ├── models/             # Mongoose schemas (User, InterviewKit)
-│   │   ├── routes/             # Express API routes (authRoutes, kitRoutes)
-│   │   ├── services/           # Pipeline business logic
-│   │   │   ├── briefService.js
-│   │   │   ├── coverageService.js
-│   │   │   ├── crawlerService.js
-│   │   │   ├── flashcardService.js
-│   │   │   ├── kitGenerationService.js
-│   │   │   ├── llmService.js
-│   │   │   ├── pipelineEngine.js
-│   │   │   ├── questionService.js
-│   │   │   └── scheduleService.js
-│   │   ├── utils/              # URL validation, SSRF filters, schedule helpers
-│   │   └── server.js           # Express application entry point
-│   └── package.json
-├── frontend/
-│   ├── app/
-│   │   ├── dashboard/          # Dashboard with quick actions and stats
-│   │   ├── kits/               # Kit listings and detail builder
-│   │   │   ├── [id]/
-│   │   │   │   ├── page.js     # Full Kit Builder & Inspector
-│   │   │   │   └── practice/
-│   │   │   │       └── page.js # Interactive Flashcard Practice Mode
-│   │   │   └── new/            # New Kit Generation Wizard
-│   │   ├── login/              # User Login Page
-│   │   ├── register/           # User Registration Page
-│   │   ├── globals.css         # Tailwind directives
-│   │   └── page.js             # Landing page
-│   ├── components/             # Reusable UI components
-│   ├── lib/
-│   │   └── api.js              # Client-side API client
-│   └── package.json
-├── cases/
-│   ├── sample.json             # Test cases (1-day, 60-day, unreachable domain)
-│   └── output.json             # Evaluator output (Appendix B format)
-├── scripts/
-│   ├── evaluate.js             # Batch evaluation runner
-│   └── test.js                 # Automated invariant test suite
-├── .env.example                # Sample environment configuration
-├── package.json                # Root package scripts
-└── README.md                   # Project documentation
+Job Description
+       +
+Company URL
+       +
+Preparation Days
+       ↓
+Company Research
+       ↓
+JD & Requirement Extraction
+       ↓
+Role & Skill Analysis
+       ↓
+Question Generation
+       ↓
+Flashcards
+       ↓
+Coverage Validation
+       ↓
+Deterministic Study Schedule
+       ↓
+Interactive Interview Kit
 ```
 
 ---
 
-## Getting Started
+# ✨ Key Features
 
-### Prerequisites
-- **Node.js**: v18.0.0 or later
-- **MongoDB**: v6.0 or later running locally on `mongodb://localhost:27017` (or MongoDB Atlas connection string)
-- **npm**: v9.0.0 or later
+## 1. Authentication & User Isolation
 
-### Environment Variables
-Copy `.env.example` to `backend/.env` (or configure in your shell):
+* User registration and login
+* Password hashing using `bcryptjs`
+* Session-based authentication
+* MongoDB-backed sessions using `connect-mongo`
+* HttpOnly authentication cookies
+* User-specific interview kits
+* Protected API routes
+* Users can only access their own kits
+
+### Production cookie configuration
+
+Because the frontend and backend are deployed on different domains, production authentication uses:
+
+```text
+HttpOnly
+Secure
+SameSite=None
+```
+
+This allows the browser to send the session cookie between the Vercel frontend and Render backend while keeping the cookie inaccessible to client-side JavaScript.
+
+---
+
+# 2. 🤖 AI Interview Preparation Pipeline
+
+PrepForge processes a job description and company information through a structured pipeline.
+
+### Pipeline stages
+
+1. Validate user input
+2. Validate company URL
+3. Crawl company website
+4. Extract useful company information
+5. Extract job requirements
+6. Separate must-have and nice-to-have requirements
+7. Analyze role and skills
+8. Generate interview questions
+9. Generate flashcards
+10. Validate requirement coverage
+11. Generate deterministic study schedule
+12. Store the completed kit
+
+AI-generated content uses the configured **Google Gemini model**.
+
+The application also uses deterministic processing where predictable results are more appropriate, particularly for:
+
+* Requirement IDs
+* Requirement classification
+* Coverage calculation
+* Schedule allocation
+* Validation
+* Evaluator output structure
+
+This reduces unnecessary dependence on LLM output for logic that can be handled deterministically.
+
+---
+
+# 3. 🏢 Company Research & Crawling
+
+PrepForge accepts a company website URL and performs research dynamically instead of depending on hard-coded company paths.
+
+The crawler:
+
+* Validates URLs before requesting them
+* Blocks unsafe/private network targets
+* Attempts to respect `robots.txt`
+* Handles request failures
+* Applies timeout and retry/backoff behaviour
+* Continues when individual sources fail
+* Extracts relevant page content
+* Treats crawled webpage content as untrusted input
+
+The system is designed to continue the preparation pipeline even when some company pages cannot be accessed.
+
+### Example research output
+
+```text
+Company Brief
+├── Company overview
+├── Products / services
+├── Industry
+├── Technology information
+└── Relevant company context
+
+Role Breakdown
+├── Role summary
+├── Responsibilities
+├── Required skills
+└── Nice-to-have skills
+```
+
+---
+
+# 4. 📝 Interactive Kit Builder
+
+Generated content is not treated as read-only.
+
+Users can:
+
+* Edit generated content
+* Add questions
+* Delete questions
+* Reorder questions
+* Pin important questions
+* Edit flashcards
+* Regenerate individual sections
+* Preserve manually edited content during regeneration
+
+This makes the application useful as an actual preparation tool rather than only an AI content generator.
+
+---
+
+# 5. 🧠 Practice Mode & Active Recall
+
+PrepForge includes an interactive flashcard practice experience.
+
+Users can:
+
+* Practice generated flashcards
+* Mark confidence levels
+* Track weaker topics
+* Prioritize weaker cards
+* Review cards repeatedly
+
+The practice flow is designed around **active recall** rather than simply displaying generated content.
+
+---
+
+# 6. 📅 Deterministic Study Schedule
+
+The preparation schedule is generated from:
+
+* Number of preparation days
+* Interview requirements
+* Requirement priority
+* Estimated study time
+* Coverage requirements
+
+Schedule generation is deterministic rather than asking the LLM to decide the final day-by-day allocation.
+
+This provides predictable and testable scheduling behaviour.
+
+---
+
+# 7. 🧪 Automated Verification Suite
+
+The project contains automated tests for important application invariants.
+
+The test suite validates areas such as:
+
+* Kit structure
+* Requirement IDs
+* Must-have / nice-to-have classification
+* Requirement coverage
+* Schedule allocation
+* Edge cases
+* Data structure consistency
+
+Run:
+
+```bash
+npm test
+```
+
+---
+
+# 8. 📦 Batch Evaluation Engine
+
+PrepForge provides the required evaluation command:
+
+```bash
+npm run evaluate -- --input <cases.json> --output <kits.json>
+```
+
+Example:
+
+```bash
+npm run evaluate -- --input cases/sample.json --output kits.json
+```
+
+The evaluator uses the same core preparation pipeline used by the application.
+
+It supports processing multiple cases and is designed to continue processing when an individual case encounters an error.
+
+---
+
+# 🏗️ Architecture
+
+```text
+┌───────────────────────────────┐
+│        Next.js Frontend       │
+│                               │
+│  Authentication              │
+│  Kit Creation                │
+│  Kit Builder                 │
+│  Practice Mode               │
+│  Progress / Error UI         │
+└───────────────┬───────────────┘
+                │
+                │ REST API
+                ▼
+┌───────────────────────────────┐
+│       Node.js + Express       │
+│                               │
+│  Authentication              │
+│  Session Management          │
+│  Kit APIs                    │
+│  Research / Crawling         │
+│  AI Generation               │
+│  Validation                  │
+│  Pipeline Engine             │
+└───────────────┬───────────────┘
+                │
+       ┌────────┴────────┐
+       ▼                 ▼
+┌───────────────┐  ┌────────────────┐
+│ MongoDB       │  │ Gemini LLM     │
+│               │  │                │
+│ Users         │  │ AI generation  │
+│ Sessions      │  │ Question       │
+│ Interview Kits│  │ Flashcards     │
+└───────────────┘  └────────────────┘
+
+                │
+                ▼
+┌───────────────────────────────┐
+│   Deterministic Pipeline      │
+│                               │
+│ Requirement IDs              │
+│ Coverage                     │
+│ Schedule                     │
+│ Validation                   │
+└───────────────────────────────┘
+
+                │
+                ▼
+┌───────────────────────────────┐
+│      Batch Evaluator          │
+│                               │
+│ cases.json → kits.json        │
+└───────────────────────────────┘
+```
+
+---
+
+# 🛠️ Technology Stack
+
+## Frontend
+
+* Next.js 14
+* React 18
+* Tailwind CSS
+* JavaScript
+* Heroicons
+
+## Backend
+
+* Node.js
+* Express.js
+* JavaScript
+* REST APIs
+
+## Database
+
+* MongoDB
+* Mongoose
+* MongoDB Atlas for production
+
+## Authentication
+
+* Express Session
+* connect-mongo
+* bcryptjs
+* HttpOnly cookies
+
+## AI
+
+* Google Gemini
+* Configurable LLM model through environment variables
+
+## Development Tools
+
+* Git
+* GitHub
+* VS Code
+* Postman
+* Vercel
+* Render
+
+---
+
+# 📁 Project Structure
+
+```text
+prepforge/
+│
+├── frontend/
+│   ├── app/
+│   │   ├── dashboard/
+│   │   ├── kits/
+│   │   ├── login/
+│   │   ├── register/
+│   │   └── ...
+│   │
+│   ├── components/
+│   ├── lib/
+│   │   └── api.js
+│   ├── public/
+│   ├── package.json
+│   └── ...
+│
+├── backend/
+│   ├── routes/
+│   ├── models/
+│   ├── services/
+│   ├── middleware/
+│   ├── crawler/
+│   ├── pipeline/
+│   ├── server.js
+│   └── package.json
+│
+├── scripts/
+│   ├── evaluate.js
+│   └── test.js
+│
+├── cases/
+│   └── sample.json
+│
+├── .env.example
+├── package.json
+└── README.md
+```
+
+> The exact internal file structure may evolve as the application is developed; the main separation is between the Next.js frontend, Express backend, pipeline/evaluation logic, and configuration.
+
+---
+
+# ⚙️ Getting Started
+
+## Prerequisites
+
+Install:
+
+* Node.js 18+
+* npm
+* MongoDB local instance or MongoDB Atlas
+* Git
+
+An API key for the configured Gemini model is required for AI generation.
+
+---
+
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/Pansaredk/prepforge.git
+cd prepforge
+```
+
+---
+
+# 2. Backend Setup
+
+```bash
+cd backend
+npm install
+```
+
+Create:
+
+```text
+backend/.env
+```
+
+Example:
 
 ```env
 PORT=5000
+
 MONGODB_URI=mongodb://localhost:27017/ai_interview_prep
-SESSION_SECRET=prepforge_super_secret_session_key_2026
+
+SESSION_SECRET=your_secure_random_secret
+
+LLM_API_KEY=your_gemini_api_key
+LLM_MODEL=gemini-1.5-flash
+
 NODE_ENV=development
-FRONTEND_URL=http://localhost:3000
+
+CLIENT_URL=http://localhost:3000
 ```
 
-For the frontend, create `frontend/.env.local` (optional, defaults to `http://localhost:5000/api`):
+For production, `MONGODB_URI` should point to MongoDB Atlas.
+
+Start the backend:
+
+```bash
+npm start
+```
+
+Backend:
+
+```text
+http://localhost:5000
+```
+
+---
+
+# 3. Frontend Setup
+
+Open another terminal:
+
+```bash
+cd frontend
+npm install
+```
+
+Create:
+
+```text
+frontend/.env.local
+```
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000/api
 ```
 
-### Backend Installation & Startup
+Start the frontend:
 
 ```bash
-# Navigate to backend directory
-cd backend
-
-# Install dependencies
-npm install
-
-# Start development server with live reload
-npm run dev
-
-# Or start in production mode
-npm start
-```
-The backend starts at `http://localhost:5000`. Verify health at `http://localhost:5000/api/health`.
-
-### Frontend Installation & Startup
-
-```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install dependencies
-npm install
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-
-# Or start development server
 npm run dev
 ```
-The frontend is available at `http://localhost:3000`.
+
+Frontend:
+
+```text
+http://localhost:3000
+```
 
 ---
 
-## CLI Commands
+# 🔐 Environment Variables
 
-All commands can be executed directly from the project root:
+## Backend
 
-### Batch Evaluator CLI
-Evaluates an input file containing multiple interview kit cases and writes the output according to the TRAO Appendix B JSON specification:
+| Variable         | Purpose                           |
+| ---------------- | --------------------------------- |
+| `PORT`           | Express server port               |
+| `MONGODB_URI`    | MongoDB connection string         |
+| `SESSION_SECRET` | Session encryption/signing secret |
+| `LLM_API_KEY`    | Gemini API key                    |
+| `LLM_MODEL`      | Configured Gemini model           |
+| `NODE_ENV`       | Application environment           |
+| `CLIENT_URL`     | Allowed frontend origin           |
 
-```bash
-# From project root:
-npm run evaluate -- --input cases/sample.json --output cases/output.json
+## Frontend
 
-# Or directly with node:
-node scripts/evaluate.js cases/sample.json cases/output.json
+| Variable              | Purpose              |
+| --------------------- | -------------------- |
+| `NEXT_PUBLIC_API_URL` | Backend API base URL |
+
+### Production configuration
+
+The deployed frontend points to the Render backend:
+
+```text
+NEXT_PUBLIC_API_URL=<production-backend>/api
 ```
 
-### Automated Test Suite
-Runs the 16-test invariant suite covering schedule math, coverage completeness, structural checks, and pipeline resilience:
+The backend allows the deployed Vercel frontend through:
+
+```text
+CLIENT_URL=<production-frontend>
+```
+
+Secrets must never be committed to Git.
+
+---
+
+# 🧪 Running Tests
+
+From the project root:
 
 ```bash
-# From project root:
 npm test
-
-# Or from backend directory:
-npm --prefix backend test
 ```
 
----
-
-## API Specification
-
-### Authentication (`/api/auth`)
-| Method | Endpoint | Description | Auth Required |
-|---|---|---|---|
-| `POST` | `/api/auth/register` | Register new user account (`email`, `password`) | No |
-| `POST` | `/api/auth/login` | Login user and establish session cookie | No |
-| `POST` | `/api/auth/logout` | Destroy current session and clear cookie | Yes |
-| `GET` | `/api/auth/me` | Return currently logged-in user profile | Yes |
-
-### Interview Kits (`/api/kits`)
-| Method | Endpoint | Description | Auth Required |
-|---|---|---|---|
-| `POST` | `/api/kits` | Create new interview kit draft (`title`, `jobDescription`, `companyUrl`, `days`) | Yes |
-| `GET` | `/api/kits` | List all kits belonging to logged-in user | Yes |
-| `GET` | `/api/kits/:id` | Get full details for a kit | Yes |
-| `PATCH` | `/api/kits/:id` | Update kit title, brief, role breakdown, or requirements | Yes |
-| `POST` | `/api/kits/:id/generate` | Trigger full AI pipeline generation | Yes |
-
-### Kit Builder & Question Management
-| Method | Endpoint | Description | Auth Required |
-|---|---|---|---|
-| `POST` | `/api/kits/:id/questions` | Add custom user question to question bank | Yes |
-| `PATCH` | `/api/kits/:id/questions/:qId` | Update question text, category, duration, outline, or pin status | Yes |
-| `DELETE` | `/api/kits/:id/questions/:qId` | Delete question (cascades to flashcards & schedule) | Yes |
-| `PUT` | `/api/kits/:id/questions/reorder` | Reorder questions in question bank | Yes |
-| `PATCH` | `/api/kits/:id/flashcards/:fcId` | Update flashcard content or confidence rating (`low`, `medium`, `high`) | Yes |
-
-### Selective AI Regeneration
-| Method | Endpoint | Description | Auth Required |
-|---|---|---|---|
-| `POST` | `/api/kits/:id/regenerate/brief` | Regenerate company overview & role breakdown | Yes |
-| `POST` | `/api/kits/:id/regenerate/questions/:category` | Regenerate specific question category (preserves pinned/edited) | Yes |
-| `POST` | `/api/kits/:id/regenerate/schedule` | Recalculate schedule days based on current questions | Yes |
+The verification suite checks deterministic application invariants and important edge cases.
 
 ---
 
-## Security & Production Readiness
+# 📊 Running the Evaluator
 
-1. **SSRF Protection**:
-   - Company URL validation strictly enforces HTTP/HTTPS protocols.
-   - Private, internal, and link-local IP addresses (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `127.0.0.1`, `localhost`, `0.0.0.0`) are blocked before making outbound requests.
-2. **Strict Session Security**:
-   - Sessions are stored server-side in MongoDB via `connect-mongo`.
-   - Session cookies utilize `httpOnly: true` (preventing XSS theft) and `sameSite: 'lax'`.
-   - Passwords hashed with `bcryptjs` using automatic salt generation.
-3. **Data Isolation**:
-   - Queries enforce user ownership scoping on every kit mutation. Attempts to access or edit another user's kit return `403 Forbidden` or `404 Not Found`.
-4. **Input Sanitization**:
-   - HTML stripping and trim routines on all user text inputs and crawled webpage contents.
-5. **No Hallucination Architecture**:
-   - The extraction and question generation engines ground outputs in verifiable requirements directly from the provided JD.
+The required evaluator command is:
 
----
+```bash
+npm run evaluate -- --input <cases.json> --output <kits.json>
+```
 
-## Design Decisions & Trade-Offs
+Example:
 
-- **Unified Pipeline Engine (`pipelineEngine.js`)**:
-  Both the web application backend (`POST /api/kits/:id/generate`) and the batch evaluator CLI (`node scripts/evaluate.js`) share the exact same core pipeline engine. This eliminates code drift between interactive web sessions and automated assessment grading.
-- **Deterministic Scheduling**:
-  Instead of non-deterministic LLM schedule generation that risks uneven distribution or missed days, schedule allocation uses a greedy bin-packing algorithm that guarantees every single day (from 1 to 60) receives appropriate study time, with critical must-haves prioritized first.
-- **Heuristic Fallback vs External LLM API Keys**:
-  To guarantee that the assessment can be evaluated out-of-the-box in offline or budget-constrained environments without requiring paid external API credentials (OpenAI/Anthropic), the pipeline includes an intelligent keyword/NLP extraction engine that deterministically produces rich, grounded questions. An external LLM adapter can be configured with zero schema changes.
+```bash
+npm run evaluate -- --input cases/sample.json --output kits.json
+```
+
+The evaluator:
+
+1. Reads the input cases.
+2. Processes each case through the preparation pipeline.
+3. Generates the corresponding interview kit.
+4. Continues processing after recoverable failures.
+5. Writes the resulting kits to the specified output file.
 
 ---
 
-## Known Limitations
+# 🔌 API Overview
 
-- **Web Crawler JavaScript Execution**: The lightweight crawler uses standard HTTP fetch and regex/HTML parsers. Complex Single Page Applications (SPAs) that render exclusively via client-side JavaScript may yield minimal text, triggering the fallback JD-grounded research pipeline.
-- **Synchronous vs Asynchronous Queueing**: For small-scale usage, background execution via Promises is fast and simple. In an enterprise production deployment, a distributed Redis-backed queue (such as BullMQ) with dedicated worker nodes would be recommended for multi-tenant throughput.
+The backend exposes REST APIs for:
+
+### Authentication
+
+```text
+POST /api/auth/register
+POST /api/auth/login
+POST /api/auth/logout
+GET  /api/auth/me
+```
+
+### Interview Kits
+
+```text
+POST   /api/kits
+GET    /api/kits
+GET    /api/kits/:id
+PUT    /api/kits/:id
+DELETE /api/kits/:id
+```
+
+### Generation / Preparation
+
+The kit generation APIs handle:
+
+* Company research
+* JD analysis
+* Requirement extraction
+* Question generation
+* Flashcard generation
+* Schedule generation
+* Section regeneration
+
+The frontend communicates with these APIs through the centralized API client.
+
+---
+
+# 🔒 Security & Production Readiness
+
+## Authentication
+
+* Passwords are hashed using `bcryptjs`.
+* Authentication uses server-side sessions.
+* Session data is stored in MongoDB.
+* Authentication cookies are HttpOnly.
+* Production cookies use `Secure`.
+* Production cross-site authentication uses `SameSite=None`.
+
+## Authorization
+
+Protected resources verify the authenticated user before accessing interview kits.
+
+A user cannot access another user's kit simply by changing a kit ID.
+
+## CORS
+
+The backend uses an explicit allow-list for frontend origins and enables credentials for session-based authentication.
+
+## URL Validation
+
+Company URLs are validated before crawling.
+
+The application includes protection against requests targeting private or loopback network addresses.
+
+## Secrets
+
+API keys and session secrets are provided through environment variables.
+
+They are not stored in source code or committed to Git.
+
+## Untrusted Web Content
+
+Company webpages are treated as external/untrusted data.
+
+Web content is not treated as trusted application instructions.
+
+---
+
+# 🧠 Design Decisions & Trade-offs
+
+## Why session authentication?
+
+Server-side sessions were selected instead of storing JWTs in browser storage.
+
+Benefits:
+
+* HttpOnly cookies
+* Server-controlled sessions
+* Easy session invalidation
+* No authentication token stored in `localStorage`
+
+---
+
+## Why deterministic scheduling?
+
+LLMs are useful for generating content but are not ideal for enforcing exact scheduling rules.
+
+Therefore:
+
+```text
+LLM
+ ↓
+Content generation
+
+Deterministic code
+ ↓
+Coverage + scheduling + validation
+```
+
+This makes the final schedule predictable and easier to test.
+
+---
+
+## Why allow editing generated content?
+
+AI-generated content may require correction or personalization.
+
+The kit therefore supports:
+
+* Editing
+* Adding
+* Deleting
+* Reordering
+* Pinning
+
+The user remains in control of the final preparation material.
+
+---
+
+## Why selective regeneration?
+
+Regenerating an entire kit could overwrite useful user edits.
+
+The application therefore supports section-level regeneration while preserving user-managed content where applicable.
+
+---
+
+# 🌐 Deployment
+
+## Frontend
+
+Deployed using:
+
+**Vercel**
+
+The frontend is a Next.js application.
+
+## Backend
+
+Deployed using:
+
+**Render**
+
+The backend runs the Node.js/Express API.
+
+## Database
+
+Production data is stored in:
+
+**MongoDB Atlas**
+
+## AI
+
+AI generation uses the configured Gemini API model through a server-side environment variable.
+
+The Gemini API key is never exposed to the frontend.
+
+---
+
+# ⚠️ Known Limitations
+
+### 1. Web crawling
+
+The crawler primarily processes accessible server-rendered webpage content.
+
+Highly dynamic JavaScript-heavy websites may not expose all useful content to the crawler.
+
+### 2. Free-tier hosting
+
+The deployed backend uses a free-tier hosting environment, so cold starts may increase the first request latency.
+
+### 3. AI variability
+
+LLM-generated questions and explanations can vary between generations.
+
+The application therefore uses deterministic validation, coverage, and scheduling logic wherever predictable behaviour is required.
+
+### 4. Large-scale processing
+
+The current generation workflow is suitable for the assessment scope.
+
+A production-scale system with many simultaneous users would benefit from a background job/queue architecture for long-running generation tasks.
+
+---
+
+# 🧩 Assessment Requirement Coverage
+
+| Requirement            | Implementation                                |
+| ---------------------- | --------------------------------------------- |
+| User authentication    | Session-based authentication                  |
+| User isolation         | Authenticated ownership checks                |
+| JD input               | Supported                                     |
+| Company URL input      | Supported                                     |
+| Preparation days       | Supported                                     |
+| Batch inputs           | Supported through evaluator                   |
+| Company research       | Dynamic crawling                              |
+| Failure handling       | Pipeline continues after recoverable failures |
+| Company brief          | Generated                                     |
+| Role breakdown         | Generated                                     |
+| Question bank          | Generated                                     |
+| Flashcards             | Generated                                     |
+| Editable content       | Supported                                     |
+| Reordering             | Supported                                     |
+| Add/Delete             | Supported                                     |
+| Pinning                | Supported                                     |
+| Section regeneration   | Supported                                     |
+| Practice mode          | Supported                                     |
+| Confidence tracking    | Supported                                     |
+| Weak-first review      | Supported                                     |
+| Deterministic coverage | Supported                                     |
+| Deterministic schedule | Supported                                     |
+| Batch evaluator        | Supported                                     |
+| Automated tests        | Supported                                     |
+| Production frontend    | Vercel                                        |
+| Production backend     | Render                                        |
+| Production database    | MongoDB Atlas                                 |
+
+---
+
+# 📈 Future Improvements
+
+Possible extensions beyond the assessment scope:
+
+* Background job queue for long-running generation
+* Real-time progress using WebSockets or Server-Sent Events
+* More advanced website crawling
+* Resume upload and resume-vs-JD analysis
+* Mock interview mode
+* Interview performance analytics
+* Weak-topic reports
+* Printable interview preparation sheets
+* Company comparison
+* More LLM provider options
+
+---
+
+# 👩‍💻 Author
+
+**Divya Pansare**
+
+Interested in:
+
+* MERN Stack Development
+* Python
+* AI/ML
+* Full-Stack Development
+
+---
+
+# 📄 License
+
+This project was developed as part of a technical assessment and portfolio work.
