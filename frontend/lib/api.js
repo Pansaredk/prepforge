@@ -110,8 +110,9 @@ export async function getKitById(id) {
 /**
  * Trigger generation for a kit
  */
-export async function generateKit(id) {
-  return request(`/kits/${id}/generate`, {
+export async function generateKit(id, sync = false) {
+  const query = sync ? '?sync=true' : '';
+  return request(`/kits/${id}/generate${query}`, {
     method: 'POST',
   });
 }

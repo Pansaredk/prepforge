@@ -70,6 +70,7 @@ export default function NewKitPage() {
   };
 
   const handleCreate = async (andGenerate = false) => {
+    if (submitting) return;
     setError('');
     if (!validateForm()) return;
 
@@ -93,10 +94,9 @@ export default function NewKitPage() {
 
         // 2. Optionally trigger generation
         if (andGenerate) {
-          try {
-            await generateKit(kitId);
-          } catch (genErr) {
-            console.warn('Generation trigger notice:', genErr);
+          const genRes = await generateKit(kitId, true);
+          if (genRes && !genRes.success) {
+            throw new Error(genRes.message || 'Failed to generate interview kit.');
           }
         }
 
@@ -141,9 +141,18 @@ export default function NewKitPage() {
           </div>
 
           {error && (
-            <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-xs sm:text-sm text-red-700">
-              <span className="font-bold">Error: </span>
-              {error}
+            <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-xs sm:text-sm text-red-700 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <span className="font-bold">Error: </span>
+                {error}
+              </div>
+              <button
+                type="button"
+                onClick={() => handleCreate(true)}
+                className="self-start sm:self-auto shrink-0 rounded-lg bg-red-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700 transition cursor-pointer"
+              >
+                Try Again
+              </button>
             </div>
           )}
 
@@ -242,18 +251,24 @@ export default function NewKitPage() {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-slate-100">
-              <Link
-                href="/dashboard"
-                className="w-full sm:w-auto text-center rounded-xl bg-white border border-slate-300 px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
-              >
-                Cancel
-              </Link>
+              {submitting ? (
+                <span className="w-full sm:w-auto text-center rounded-xl bg-slate-100 border border-slate-200 px-4 py-2.5 text-xs font-semibold text-slate-400 cursor-not-allowed">
+                  Cancel
+                </span>
+              ) : (
+                <Link
+                  href="/dashboard"
+                  className="w-full sm:w-auto text-center rounded-xl bg-white border border-slate-300 px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition"
+                >
+                  Cancel
+                </Link>
+              )}
 
               <button
                 type="button"
                 onClick={() => handleCreate(false)}
                 disabled={submitting}
-                className="w-full sm:w-auto rounded-xl bg-slate-100 border border-slate-200 px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-200 disabled:opacity-50 transition"
+                className="w-full sm:w-auto rounded-xl bg-slate-100 border border-slate-200 px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed transition"
               >
                 Create Kit (Draft)
               </button>
@@ -262,14 +277,35 @@ export default function NewKitPage() {
                 type="button"
                 onClick={() => handleCreate(true)}
                 disabled={submitting}
-                className="w-full sm:w-auto rounded-xl bg-indigo-600 px-5 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-700 disabled:opacity-50 transition"
+                className="w-full sm:w-auto rounded-xl bg-indigo-600 px-5 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
               >
-                {submitting ? 'Creating & Generating...' : 'Generate Kit'}
+                {submitting ? 'Generating...' : 'Generate Kit'}
               </button>
             </div>
           </div>
         </div>
       </main>
+
+      {/* Centered Modal / Overlay for Generation State */}
+      {submitting && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-[2px] p-4"
+        >
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 text-center shadow-2xl border border-slate-100 space-y-4">
+            <div className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent" />
+            <div className="space-y-1.5">
+              <h3 className="text-lg font-bold text-slate-900">
+                Generating your interview kit
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm mx-auto">
+                Researching the company and preparing your personalized interview kit...
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
